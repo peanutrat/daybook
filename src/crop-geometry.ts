@@ -1,0 +1,2 @@
+export type CropBox=[number,number,number,number];
+export function dragCrop(box:CropBox,mode:string,dx:number,dy:number):CropBox{const [l,t,r,b]=box,clamp=(n:number,min:number,max:number)=>Math.max(min,Math.min(max,n));if(mode==='move'){dx=clamp(dx,-l,100-r);dy=clamp(dy,-t,100-b);return[l+dx,t+dy,r+dx,b+dy]}return[mode.includes('w')?clamp(l+dx,0,r-1):l,mode.includes('n')?clamp(t+dy,0,b-1):t,mode.includes('e')?clamp(r+dx,l+1,100):r,mode.includes('s')?clamp(b+dy,t+1,100):b];}

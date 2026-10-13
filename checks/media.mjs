@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';import {youtubeID,parseTime,youtubeEmbed,safeCrop} from '../src/media-helpers.ts';
+assert.equal(parseTime('02:15'),135);assert.equal(parseTime('1:02:03'),3723);assert.equal(parseTime('02:75'),null);assert.equal(youtubeID('https://youtu.be/M7lc1UVf-VE?t=120'),'M7lc1UVf-VE');assert.equal(youtubeID('https://youtube.com.evil.example/watch?v=M7lc1UVf-VE'),null);assert.equal(youtubeID('javascript:alert(1)'),null);const video={url:'https://www.youtube.com/watch?v=M7lc1UVf-VE',title:'test',start:'02:15',end:'03:00',chapters:[]};const url=new URL(youtubeEmbed(video));assert.equal(url.searchParams.get('start'),'135');assert.equal(url.searchParams.get('end'),'180');assert.equal(youtubeEmbed({...video,end:'01:00'}),null);assert.equal(new URL(youtubeEmbed(video,'02:30')).searchParams.get('start'),'150');const crop=safeCrop(1000,500,10,20,80,90);assert.deepEqual(crop,{x:100,y:100,width:700,height:350});assert(safeCrop(100,100,99,99,10,10).width>0);console.log('PASS: safe YouTube links, exact time/segment parsing and crop bounds.');
+const automatic={url:'https://youtu.be/M7lc1UVf-VE?t=1h2m3s',title:'shared',start:'',chapters:[]};
+assert.equal(new URL(youtubeEmbed(automatic)).searchParams.get('start'),'3723');
+assert.equal(new URL(youtubeEmbed({...automatic,start:'0:00'})).searchParams.get('start'),'3723');
+assert.equal(new URL(youtubeEmbed({...automatic,start:'0:00',startExplicit:true})).searchParams.get('start'),'0');
+assert.equal(new URL(youtubeEmbed({...automatic,start:'02:15',startExplicit:true})).searchParams.get('start'),'135');
+assert.equal(new URL(youtubeEmbed(automatic,'0:00')).searchParams.get('start'),'0');
+for(const suffix of ['?t=135','?t=135s','?start=135','#t=2m15s'])assert.equal(new URL(youtubeEmbed({...automatic,url:'https://youtu.be/M7lc1UVf-VE'+suffix})).searchParams.get('start'),'135');
+const {dragCrop}=await import('../src/crop-geometry.ts');
+assert.deepEqual(dragCrop([10,20,80,90],'move',50,50),[30,30,100,100]);
+assert.deepEqual(dragCrop([10,20,80,90],'nw',-30,-40),[0,0,80,90]);
+assert.deepEqual(dragCrop([10,20,80,90],'se',-100,-100),[10,20,11,21]);
+assert.deepEqual(dragCrop([10,20,80,90],'w',10,30),[20,20,80,90]);
+console.log('PASS: shared timestamps, legacy default migration, explicit zero/chapter overrides, crop drag/resize bounds.');

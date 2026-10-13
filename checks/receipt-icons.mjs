@@ -1,0 +1,5 @@
+import assert from 'node:assert/strict';import {activityRows} from '../public/mushrooms/receipt.js';import {MUSHROOMS} from '../public/mushrooms/assets/mushrooms.js';
+const sessions=['補記時間','刷牙','333','222','自由記錄','洗澡'].map((name,i)=>({id:String(i),name,seconds:60+i}));
+const batches=[{id:'0',count:4,counts:[{id:MUSHROOMS[0].id,count:4}]},{id:'1',count:2,counts:[{id:MUSHROOMS[0].id,count:2}]}];const rows=activityRows(sessions,batches);assert.equal(new Set(rows.map(r=>r.icon)).size,6);assert(rows.every(r=>MUSHROOMS.some(m=>m.id===r.icon)));assert.equal(rows[0].mushrooms,4);assert.equal(rows[1].mushrooms,2);assert.equal(rows[5].mushrooms,0);
+for(const row of rows){assert.equal(activityRows(sessions.filter(s=>s.name===row.name),batches,sessions)[0].icon,row.icon);assert.equal(activityRows([...sessions].reverse(),batches).find(r=>r.name===row.name).icon,row.icon);}
+const all=MUSHROOMS.map((_,i)=>({id:String(i),name:'事項 '+i,seconds:60}));assert.equal(new Set(activityRows(all,[]).map(r=>r.icon)).size,MUSHROOMS.length);console.log('PASS: distinct receipt icons, matching day/month/export mappings, unchanged harvest totals and full asset-pool collision handling.');
