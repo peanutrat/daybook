@@ -1,0 +1,4 @@
+function rgb(hex:string){return /^#[0-9a-f]{6}$/i.test(hex)?[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)):null}
+export function colorContrast(a:string,b:string){const luminance=(hex:string)=>{const values=(rgb(hex)||[0,0,0]).map(n=>{const v=n/255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return values[0]*.2126+values[1]*.7152+values[2]*.0722};const x=luminance(a),y=luminance(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
+export function readableTaskInk(background:string){const dark=colorContrast(background,'#26342e'),light=colorContrast(background,'#ffffff');return Math.max(dark,light)<4.5?'#000000':dark>=light?'#26342e':'#ffffff'}
+export function taskBackground(custom:string|undefined,automatic:string,night:boolean){const color=rgb(custom||'')?custom!:automatic;if(!night)return color;const channels=rgb(color)||[52,70,77],paper=[36,44,52];return '#'+channels.map((n,i)=>Math.round(n*.23+paper[i]*.77).toString(16).padStart(2,'0')).join('')}
