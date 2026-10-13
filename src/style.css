@@ -78,3 +78,5 @@
 .mushroomSection:not([open])>iframe,.mushroomSection:not([open])>.mushroomHint{display:none!important}
 /* Both task sections retain their hue and adapt contrast to night mode. */
 .bookApp .taskSection h3,.bookApp .taskSection .taskMain>span,.bookApp .taskSection .taskExtras>summary,.bookApp .taskSection .taskMemo{color:var(--task-ink,var(--ink))}.bookApp .taskSection .taskMain>.done{color:var(--task-ink,var(--ink));opacity:.7}.bookApp .taskSection .taskExtras>summary{opacity:.8}.bookApp .taskSection .taskMain>.quiet{color:var(--task-ink,var(--ink))}.bookApp .taskSection .muted{color:var(--task-ink,var(--ink));opacity:.75}.bookApp[data-night=true] .taskSection .task{border-bottom-color:#ffffff25}.bookApp .calendarTask.completed{opacity:.75}
+/* Date-detail notes use the same theme surfaces as the notebook. */
+.bookApp .dateNote{background:var(--soft);color:var(--ink);border:1px solid var(--edge);margin:12px 0;white-space:normal}.bookApp .dateNote .noteReading,.bookApp .dateNote .noteText{color:var(--ink)}.bookApp .dateNote>small{color:var(--ink);opacity:.7}.bookApp .pictureTools .button{background:var(--paper);color:var(--ink);border-color:var(--edge)}
