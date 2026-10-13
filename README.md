@@ -13,3 +13,9 @@
 將此資料夾內容（包含 docs 與 src）上傳到儲存庫。在 Settings → Pages 選 Deploy from a branch，分支 main，資料夾 /docs，儲存即可。
 
 docs 已含建置好的檔案，首次發布不需安裝。後續修改程式請執行 npm install、npm run build，將 dist 內容更新到 docs。
+
+## 蘑菇計時與收成
+
+短筆記後方有可收合的計時區塊，月曆或筆記切換時仍繼續記錄。選擇當日一次性／每日待辦，完成並採收後同步勾選；也可自由記錄或補記時間。日／月收成小票、週回顧、圖鑑與背包都在同頁使用。完整 JSON 備份包含蘑菇紀錄。舊獨立 Demo 的紀錄可先匯出，再從蘑菇區塊匯入。
+
+蘑菇素材作者：[Pixerelia](https://pixerelia.itch.io/)。樹樁、籃子與結算 Logo 由使用者提供。
