@@ -16,4 +16,4 @@
 
 Settings → Pages 選 Deploy from a branch，分支 main、資料夾 /docs。docs 包含建置結果。修改原始碼後執行 npm install、npm run build，將 dist 內容同步至 docs。
 
-蘑菇素材作者：[Pixerelia](https://pixerelia.itch.io/)。樹樁、採菇籃及結算 Logo 由使用者提供。
+蘑菇素材作者：[Pixerelia](https://pixerelia.itch.io/)。
