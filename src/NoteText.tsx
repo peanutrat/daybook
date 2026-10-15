@@ -40,7 +40,7 @@ export default function NoteText({text,onChange,date,images=[],draft=false,symbo
  {panel==='format'&&<>
  {tool('heading','標題',()=>mark('heading'))}{tool('subtitle','次標題',()=>mark('subtitle'))}{tool('body','本文',()=>mark('body'))}
  <span className="noteToolDivider"/>
- {(['left','center','right','justify','outdent','indent'] as ParagraphAction[]).map((action)=>tool(action,({left:'靠左',center:'置中',right:'靠右',justify:'左右對齊',quote:'引用區塊',outdent:'減少縮排',indent:'增加縮排'} as Record<string,string>)[action],()=>rich.current?.paragraph(action)))}
+ {(['left','center','right','outdent','indent'] as ParagraphAction[]).map((action)=>tool(action,({left:'靠左',center:'置中',right:'靠右',quote:'引用區塊',outdent:'減少縮排',indent:'增加縮排'} as Record<string,string>)[action],()=>rich.current?.paragraph(action)))}
  </>}
  {panel==='color'&&<>
  <label className="noteColorControl"><span>字色</span><input type="color" aria-label="筆記文字顏色" value={ink} onChange={e=>setInk(e.target.value)}/>{tool('color','套用字色',()=>mark('color',ink),{color:ink})}</label>

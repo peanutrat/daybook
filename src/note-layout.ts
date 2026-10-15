@@ -1,5 +1,5 @@
 import {noteBlocks,blocksSyntax,type NoteLine} from './note-format';
-export type ParagraphAction='quote'|'indent'|'outdent'|'left'|'right'|'center'|'justify';
+export type ParagraphAction='quote'|'indent'|'outdent'|'left'|'right'|'center';
 export function paragraphNote(text:string,start:number,end:number,action:ParagraphAction,index?:number){
  const blocks=noteBlocks(text);let cursor=0;const lines:NoteLine[]=[];
  for(const [i,b] of blocks.entries()){const length=b.type==='line'?b.line.tokens.reduce((n,t)=>n+t.text.length,0):b.rows.flat(2).reduce((n,t)=>n+t.text.length,0);if(b.type==='line'&&(start===end&&index!==undefined?i===index:start===end?cursor<=start&&start<=cursor+length:cursor<end&&cursor+length>start))lines.push(b.line);cursor+=length}

@@ -1,4 +1,4 @@
-export type NoteIconName='bold'|'italic'|'strike'|'spoiler'|'highlight'|'link'|'clear'|'format'|'color'|'list'|'table'|'quote'|'indent'|'outdent'|'left'|'right'|'center'|'justify'|'up'|'down'|'check'|'edit'|'copy'|'plain'|'txt'|'image'|'row'|'column'|'removeRow'|'removeColumn'|'widths'|'heights'|'numbered'|'bullet'|'close'|'heading'|'subtitle'|'body'|'small'|'symbols';
+export type NoteIconName='bold'|'italic'|'strike'|'spoiler'|'highlight'|'link'|'clear'|'format'|'color'|'list'|'table'|'quote'|'indent'|'outdent'|'left'|'right'|'center'|'up'|'down'|'check'|'edit'|'copy'|'plain'|'txt'|'image'|'row'|'column'|'removeRow'|'removeColumn'|'widths'|'heights'|'numbered'|'bullet'|'close'|'heading'|'subtitle'|'body'|'small'|'symbols';
 const paths:Partial<Record<NoteIconName,string>>={
  bold:'M7 4h6a4 4 0 0 1 0 8H7m0 0h7a4 4 0 0 1 0 8H7V4',
  italic:'M10 4h8M6 20h8M14 4 10 20',strike:'M17 6c-3-4-10-2-10 2 0 2 3 3 5 4m-5 6c3 3 10 2 10-2M3 12h18',
@@ -13,7 +13,7 @@ const paths:Partial<Record<NoteIconName,string>>={
  indent:'M11 5h10M11 10h10M11 15h10M3 20h18M3 6l4 4-4 4',
  outdent:'M11 5h10M11 10h10M11 15h10M3 20h18M7 6l-4 4 4 4',
  left:'M3 5h18M3 10h12M3 15h18M3 20h12',right:'M3 5h18M9 10h12M3 15h18M9 20h12',
- center:'M3 5h18M6 10h12M3 15h18M6 20h12',justify:'M3 5h18M3 10h18M3 15h18M3 20h18',
+ center:'M3 5h18M6 10h12M3 15h18M6 20h12',
  up:'M12 20V5M6 11l6-6 6 6M4 2h16',down:'M12 4v15M6 13l6 6 6-6M4 22h16',
  check:'m4 12 5 5L20 6',edit:'m4 16 12-12 4 4L8 20H4v-4Zm9-9 4 4',
  copy:'M8 8h13v13H8zM16 8V3H3v13h5',plain:'M5 5h14M12 5v15M8 20h8',
