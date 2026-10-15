@@ -87,3 +87,4 @@
 
 /* Calendar order and optional weekend date colors. */
 .calendarPreferences{border:1px solid var(--edge);border-radius:9px;padding:10px;min-width:0;margin:8px 0}.calendarPreferences legend{font-size:12px;padding:0 4px}.calendarPreferences label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;margin:8px 0}.calendarPreferences select{min-width:0;max-width:150px;padding:6px;font-size:12px}.calendarPreferences .weekendSwitch{justify-content:flex-start}.calendarPreferences input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}.calendarPreferences input[type=color]{width:55px;height:32px;padding:2px}.calendarPreferences small{display:block;font-size:10px;line-height:1.6}
+.bookApp .noteHighlight,.richNoteEditor .richSpoiler{background:#e3c34d47;background:color-mix(in srgb,#e3c34d 28%,var(--paper));color:inherit;border:0;border-radius:3px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}

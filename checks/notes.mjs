@@ -9,7 +9,7 @@ assert.equal(markNote('第一行\n第二行',0,7,'heading').text,'## 第一行\n
 assert.equal(markNote('## 第一行\n## 第二行',0,13,'heading').text,'第一行\n第二行');
 assert(noteLines('***粗斜體***')[0].tokens[0].bold&&noteLines('***粗斜體***')[0].tokens[0].italic);
 const {readFile}=await import('node:fs/promises');const ts=await import('typescript');const exportSource=(await readFile(new URL('../src/note-export.ts',import.meta.url),'utf8')).replace("from './note-format'","from '"+new URL('../src/note-format.ts',import.meta.url).href+"'");const compiled=ts.transpileModule(exportSource,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;const {exportNoteText,exportNoteImage}=await import('data:text/javascript;base64,'+Buffer.from(compiled).toString('base64'));
-const calls=[],drawn=[];let canvas;globalThis.document={fonts:{ready:Promise.resolve()},createElement(type){if(type==='a')return{click(){calls.push(this.download)}};canvas={width:0,height:0,getContext(){return{font:'',measureText(){return{width:15}},fillRect(){},fillText(...args){drawn.push(args)},drawImage(){},beginPath(){},moveTo(){},lineTo(){},stroke(){}}},toBlob(cb){cb(new Blob(['png']))}};return canvas;}};
+const calls=[],drawn=[],fills=[];let canvas;globalThis.document={fonts:{ready:Promise.resolve()},createElement(type){if(type==='a')return{click(){calls.push(this.download)}};canvas={width:0,height:0,getContext(){return{font:'',measureText(){return{width:15}},fillRect(...args){fills.push({color:this.fillStyle,alpha:this.globalAlpha,args})},fillText(...args){drawn.push(args)},drawImage(){},beginPath(){},moveTo(){},lineTo(){},stroke(){}}},toBlob(cb){cb(new Blob(['png']))}};return canvas;}};
 exportNoteText('## 標題\n**內文**','2026-10-13');assert(calls[0].endsWith('.txt'));
 await exportNoteImage('## 標題\n**內文**\n'+'長文'.repeat(400),'2026-10-13',[],{paper:'#fff',ink:'#111',accent:'#345'});
 assert(calls[1].endsWith('.png'));assert(canvas.height>240);assert(drawn.length>800);assert(drawn.some(x=>x[0]==='標'));console.log('PASS: note formatting, safe text tokens, selection marking, TXT and complete long-note PNG export paths.');
@@ -23,5 +23,5 @@ assert.equal(plainNote('||秘密||\n[官網](https://example.com)\n[紅字]{colo
 assert.equal(markNote('測試',0,2,'strike').text,'~~測試~~');assert.equal(markNote('秘密',0,2,'spoiler').text,'||秘密||');assert.equal(markNote('連結',0,2,'link','https://example.com').text,'[連結](https://example.com)');
 assert.equal(markNote('第一行\n第二行',0,7,'color','#123456').text,'[第一行]{color=#123456}\n[第二行]{color=#123456}');
 assert.equal(markNote('第一行\n第二行',0,7,'small').text,'-# 第一行\n-# 第二行');
-drawn.length=0;await exportNoteImage('||秘密||\n[大字]{color=#123456;size=36}','2026-10-13',[],{paper:'#fff',ink:'#111',accent:'#345'});assert(!drawn.some(x=>x[0]==='秘'));assert(drawn.some(x=>x[0]==='大'));
-console.log('PASS: typed/button small text, strike, spoilers, safe links, custom size/color, multiline selection and concealed spoiler PNG.');
+drawn.length=0;await exportNoteImage('||秘密||\n[大字]{color=#123456;size=36}','2026-10-13',[],{paper:'#fff',ink:'#111',accent:'#345'});assert(drawn.some(x=>x[0]==='秘'));assert(fills.some(x=>x.color==='#e3c34d'&&x.alpha===.28));assert(drawn.some(x=>x[0]==='大'));
+console.log('PASS: typed/button small text, strike, spoilers, safe links, custom size/color, multiline selection and readable highlighter PNG.');
