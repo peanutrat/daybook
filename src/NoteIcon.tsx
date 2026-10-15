@@ -1,0 +1,33 @@
+export type NoteIconName='bold'|'italic'|'strike'|'spoiler'|'highlight'|'link'|'clear'|'format'|'color'|'list'|'table'|'quote'|'indent'|'outdent'|'left'|'right'|'center'|'justify'|'up'|'down'|'check'|'edit'|'copy'|'plain'|'txt'|'image'|'row'|'column'|'removeRow'|'removeColumn'|'widths'|'heights'|'numbered'|'bullet'|'close'|'heading'|'subtitle'|'body'|'small'|'symbols';
+const paths:Partial<Record<NoteIconName,string>>={
+ bold:'M7 4h6a4 4 0 0 1 0 8H7m0 0h7a4 4 0 0 1 0 8H7V4',
+ italic:'M10 4h8M6 20h8M14 4 10 20',strike:'M17 6c-3-4-10-2-10 2 0 2 3 3 5 4m-5 6c3 3 10 2 10-2M3 12h18',
+ spoiler:'m12 3 10 18H2L12 3Zm0 6v5m0 3v.1',
+ highlight:'m14 3 7 7-9 9H5v-7L14 3ZM3 21h18M12 5l7 7',
+ link:'m9 15 6-6M8 10l-3 3a4.25 4.25 0 0 0 6 6l3-3M10 8l3-3a4.25 4.25 0 0 1 6 6l-3 3',
+ clear:'m4 14 9-11 8 7-9 11H9L4 16v-2Zm5-6 8 7M3 21h18',
+ format:'M3 5h18M7 5v14m10-14v14M4 19h6m4 0h6',color:'m5 17 7-13 7 13M8 12h8M4 21h16',
+ list:'M9 6h12M9 12h12M9 18h12M3 6h1m-1 6h1m-1 6h1',
+ table:'M3 4h18v16H3zM3 9h18M10 4v16M3 15h18',
+ quote:'M3 4v16',
+ indent:'M11 5h10M11 10h10M11 15h10M3 20h18M3 6l4 4-4 4',
+ outdent:'M11 5h10M11 10h10M11 15h10M3 20h18M7 6l-4 4 4 4',
+ left:'M3 5h18M3 10h12M3 15h18M3 20h12',right:'M3 5h18M9 10h12M3 15h18M9 20h12',
+ center:'M3 5h18M6 10h12M3 15h18M6 20h12',justify:'M3 5h18M3 10h18M3 15h18M3 20h18',
+ up:'M12 20V5M6 11l6-6 6 6M4 2h16',down:'M12 4v15M6 13l6 6 6-6M4 22h16',
+ check:'m4 12 5 5L20 6',edit:'m4 16 12-12 4 4L8 20H4v-4Zm9-9 4 4',
+ copy:'M8 8h13v13H8zM16 8V3H3v13h5',plain:'M5 5h14M12 5v15M8 20h8',
+ txt:'M5 3h10l4 4v14H5V3Zm10 0v5h4M8 12h8m-8 4h6',
+ image:'M3 4h18v16H3zM3 17l6-7 5 5 3-3 4 5M16 8h1',
+ row:'M3 4h18v16H3zM3 12h18M12 14v4m-2-2h4',column:'M3 4h18v16H3zM12 4v16M14 12h5m-2.5-2.5v5',
+ removeRow:'M3 4h18v16H3zM3 12h18M9 16h6',removeColumn:'M3 4h18v16H3zM12 4v16M14 12h5',
+ widths:'M3 5v14M21 5v14M8 12h8M8 9l-3 3 3 3m8-6 3 3-3 3M12 5v14',
+ heights:'M5 3h14M5 21h14M12 8v8M9 8l3-3 3 3m-6 8 3 3 3-3M5 12h14',
+ numbered:'M10 6h11M10 12h11M10 18h11M3 3h2v5M3 11h3l-3 4h3M3 18h3v4H3',
+ bullet:'M9 6h12M9 12h12M9 18h12M3 6h1m-1 6h1m-1 6h1',close:'m5 5 14 14M19 5 5 19',
+ heading:'M4 4v16M15 4v16M4 12h11M19 10h2v10',subtitle:'M3 4v16M13 4v16M3 12h10M17 12c0-4 6-4 6 0l-6 8h6',
+ body:'M17 4H9a5 5 0 0 0 0 10h4M13 4v17M18 4v17',
+ symbols:'M5 20h5v-3a7 7 0 1 1 4 0v3h5',
+ small:'M3 8h12M9 8v12M18 4v10m-3-3 3 3 3-3'
+};
+export default function NoteIcon({name,color}:{name:NoteIconName;color?:string}){return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{name==='quote'?<><path d={paths.quote}/><rect x="8" y="5" width="13" height="14" rx="3" fill="currentColor" fillOpacity=".6" stroke="none"/></>:name==='color'?<><path d="m5 16 6-13 6 13M7 12h8M20 8l2 2 2-2"/><path d="M3 21h16" stroke={color||'currentColor'} strokeWidth="4" strokeLinecap="butt"/></>:<path d={paths[name]||paths.format}/>}</svg>}

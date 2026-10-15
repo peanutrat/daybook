@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+const source=readFileSync(new URL('../public/mushrooms/app.js',import.meta.url),'utf8'),fn=source.slice(source.indexOf('async function exportImage()'),source.indexOf('\n\nasync function exportReceipt()'));
+const run=new Function('$','bookData','document','exportReceipt','renderBook','snapshotWeeklyReceipt','alert',fn+';return exportImage()');
+const button={disabled:false},receipt={},downloads=[];let updated=0,captured=0;
+await run(id=>id==='period'?{value:'week'}:id==='exportPng'?button:receipt,()=>({begin:'2026-10-12'}),{createElement:()=>({click(){downloads.push(this.download)}})},()=>{throw Error('unexpected daily export')},()=>updated++,async node=>{assert.equal(node,receipt);assert(button.disabled);captured++;return {toDataURL:()=> 'data:image/png;base64,test'}},()=>{throw Error('unexpected error')});
+assert.equal(updated,1);assert.equal(captured,1);assert.equal(downloads[0],'本週收成-2026-10-12.png');assert.equal(button.disabled,false);
+let daily=false;await run(()=>({value:'day'}),null,null,()=>{daily=true},null,null,null);assert(daily);
+let message='';await run(id=>id==='period'?{value:'week'}:button,()=>({begin:'2026-10-12'}),{},null,()=>{},async()=>{throw Error('匯出失敗')},text=>message=text);assert.equal(button.disabled,false);assert.equal(message,'匯出失敗');
+const css=readFileSync(new URL('../public/mushrooms/style.css',import.meta.url),'utf8');assert(css.includes('.receipt.weekSettlement{width:100%;max-width:560px;'));assert(!css.includes('.receipt.weekSettlement{max-width:none'));
+console.log('PASS: weekly export captures the current rendered receipt, keeps the shared width and filename, and restores its download button after success or failure; day/month exports retain their own path.');

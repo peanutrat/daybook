@@ -23,7 +23,7 @@ export function inlineNote(text:string,depth=0):NoteToken[]{
 export function noteLines(text:string):NoteLine[]{return text.split('\n').map(raw=>{
  const meta=raw.match(/^::p\{(\d),?(left|right|center|justify)?\} /);if(meta)raw=raw.slice(meta[0].length);const quote=raw.startsWith('> ');if(quote)raw=raw.slice(2);
  const small=raw.match(/^(?:#{1,3}\s+)?-#\s+(.*)$/),heading=!small&&raw.match(/^(#{1,3})\s+(.*)$/);
- const value=small?small[1]:heading?heading[2]:raw,list=value.match(/^(\s*)(\d+[.)]|[•◦▪▫◆◇–\-*+→✓☐☑☒★]|\S{1,6})\s+(.+)$/u);
+ const value=small?small[1]:heading?heading[2]:raw,list=value.match(/^(\s*)(\d+[.)]|[•◦▪▫◆◇–\-*+→✓☐☑☒★]|\S{1,6})\s+(.*)$/u);
  // Custom bullets are stored with an explicit prefix, so ordinary sentences remain text.
  const custom=value.match(/^::bullet\(([^)\n]{1,8})\) (.*)$/);
  const standard=list&&(/^(\d+[.)]|[•◦▪▫◆◇–\-*+→✓☐☑☒★])$/u.test(list[2]))?list:null;

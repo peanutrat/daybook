@@ -27,6 +27,9 @@ export function toggleNoteFormat(text:string,start:number,end:number,kind:NoteMa
 export function listNote(text:string,start:number,end:number,ordered:boolean,marker='•',blockIndex?:number){
  const blocks=noteBlocks(text);let cursor=0,number=1;const chosen:NoteLine[]=[];
  for(const [index,b] of blocks.entries()){const len=b.type==='line'?b.line.tokens.reduce((n,t)=>n+t.text.length,0):b.rows.flat(2).reduce((n,t)=>n+t.text.length,0);if(b.type==='line'&&(start===end&&Number.isFinite(blockIndex)?index===blockIndex:start===end?cursor<=start&&start<=cursor+len:cursor<end&&cursor+len>start))chosen.push(b.line);cursor+=len}
+ // Older saves may contain a visible marker inside styled text as well as
+ // the paragraph marker. Normalize those duplicates before toggling.
+ for(const line of chosen){let match:RegExpMatchArray|null;while((match=line.tokens.map(t=>t.text).join('').match(/^\s*(\d+[.)]|[•◦▪▫◆◇–\-*+→✓☐☑☒★])\s+/u))){const prefix=match[1],isOrdered=/^\d/.test(prefix);if(!line.list)line.list={ordered:isOrdered,marker:prefix};else if(line.list.ordered!==isOrdered||!isOrdered&&line.list.marker!==prefix)break;let remaining=match[0].length;line.tokens=line.tokens.flatMap(t=>{if(!remaining)return[t];const take=Math.min(remaining,t.text.length);remaining-=take;return take<t.text.length?[{...t,text:t.text.slice(take)}]:[]})}}
  const remove=chosen.length>0&&chosen.every(l=>l.list?.ordered===ordered&&(ordered||l.list.marker===marker));
  for(const l of chosen){if(remove)delete l.list;else l.list={ordered,marker:ordered?(number++)+'.':marker.replace(/[()\n\r]/g,'').slice(0,8)||'•'}}
  return blocksSyntax(blocks);
