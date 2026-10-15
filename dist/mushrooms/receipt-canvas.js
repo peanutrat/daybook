@@ -1,0 +1,2 @@
+export function drawReceiptSummary(ctx,text,x=70,y=284,width=620,height=45,color='#f7f5df'){ctx.fillStyle=color;ctx.fillRect(x,y,width,height);ctx.textAlign='center';ctx.fillStyle='#718056';ctx.font='18px sans-serif';ctx.fillText(text,x+width/2,y+29)}
+export function drawHarvestTile(ctx,x,y,color='#e9dfbd'){ctx.save();ctx.globalAlpha=.8;ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+30,y+17);ctx.lineTo(x+30,y+50);ctx.lineTo(x,y+67);ctx.lineTo(x-30,y+50);ctx.lineTo(x-30,y+17);ctx.closePath();ctx.fill();ctx.restore()}
