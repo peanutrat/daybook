@@ -20,7 +20,7 @@ export function toggleNoteFormat(text:string,start:number,end:number,kind:NoteMa
    output.push(middle);if(to<t.text.length)output.push({...t,text:t.text.slice(to)});
   }
   const merged:NoteToken[]=[];for(const t of output){const previous=merged.at(-1);const styles=(x:NoteToken)=>[x.bold,x.italic,x.strike,x.spoiler,x.href,x.color,x.background,x.size];if(previous&&JSON.stringify(styles(previous))===JSON.stringify(styles(t)))previous.text+=t.text;else merged.push({...t})}
-  if(affected){line.kind='text';if(kind==='clear')delete line.list}u.set(merged);
+  if(affected){line.kind='text';if(kind==='clear'){delete line.list;delete line.quote;delete line.indent;delete line.align}}u.set(merged);
  }
  return blocksSyntax(blocks);
 }

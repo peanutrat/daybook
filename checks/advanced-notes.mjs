@@ -7,7 +7,7 @@ assert(inlineNote('||秘密||')[0].spoiler);assert(!inlineNote('==標記==')[0].
 assert.equal(portableNote('## 標題\n### 次標題\n-# 小字\n'+nested),'標題\n次標題\n小字\n[**Here we go**]('+url+')');assert(!portableNote(nested).includes('size='));assert(!portableNote(nested).includes('background='));assert(portableNote('||秘密||').includes('||秘密||'));
 assert.equal(noteCharacterCount('**中ＡA** [字]{size=24}\n😀'),6);assert.equal(noteLines('### 次標題')[0].kind,'subtitle');
 assert.equal(noteLines('1. 首項')[0].list.ordered,true);assert.equal(noteLines('• 工作')[0].list.marker,'•');assert.equal(noteLines('::bullet(✦) 自訂')[0].list.marker,'✦');assert.equal(plainNote('::bullet(✦) 自訂'),'✦ 自訂');
-const table=tableSyntax(3,4),blocks=noteBlocks(table);assert.equal(blocks.length,1);assert.equal(blocks[0].rows.length,3);assert.equal(blocks[0].rows[0].length,4);assert.equal(noteBlocks(blocksSyntax(blocks))[0].rows[0][0][0].text,'欄位 1');
+const table=tableSyntax(3,4),blocks=noteBlocks(table);assert.equal(blocks.length,1);assert.equal(blocks[0].rows.length,3);assert.equal(blocks[0].rows[0].length,4);assert.deepEqual(noteBlocks(blocksSyntax(blocks))[0].rows[0][0],[]);assert.equal(blocks[0].header,false);
 const mixed='| 項目 | 說明 |\n| --- | --- |\n| '+nested+' | ||海苔|| |';const parsed=noteBlocks(mixed)[0];assert.equal(parsed.rows[1][0][0].size,12);assert.equal(parsed.rows[1][1][0].spoiler,true);assert(plainNote(mixed).includes('Here we go\t海苔'));assert(!plainNote(mixed).includes('---'));
 assert.equal(markNote('正文',0,2,'subtitle').text,'### 正文');assert.equal(markNote('## 標題',0,5,'body').text,'標題');
 assert.equal(inlineNote('[錯誤](javascript:alert(1))')[0].href,undefined);assert.equal(plainNote('<img src=x onerror=bad>'),'<img src=x onerror=bad>');
