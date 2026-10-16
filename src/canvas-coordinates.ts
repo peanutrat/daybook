@@ -1,0 +1,4 @@
+import type {View} from './doodle-controls';
+export function canvasDisplaySize(canvas:HTMLCanvasElement,view:View){const r=canvas.getBoundingClientRect();return {width:(canvas.clientWidth||canvas.offsetWidth)?(canvas.clientWidth||canvas.offsetWidth)*view.zoom:r.width,height:(canvas.clientHeight||canvas.offsetHeight)?(canvas.clientHeight||canvas.offsetHeight)*view.zoom:r.height}}
+// A rotated DOM bounding box is axis-aligned; invert the viewport rotation about its center.
+export function canvasPoint(canvas:HTMLCanvasElement,x:number,y:number,view:View){const r=canvas.getBoundingClientRect(),display=canvasDisplaySize(canvas,view),angle=(view.rotation??0)*Math.PI/180,dx=x-r.left-r.width/2,dy=y-r.top-r.height/2;return {x:canvas.width/2+(dx*Math.cos(angle)+dy*Math.sin(angle))*canvas.width/Math.max(1,display.width),y:canvas.height/2+(-dx*Math.sin(angle)+dy*Math.cos(angle))*canvas.height/Math.max(1,display.height)}}

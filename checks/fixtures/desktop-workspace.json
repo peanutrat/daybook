@@ -1,0 +1,138 @@
+{
+  "pinnedTools": [
+    "gradient",
+    "flip",
+    "hsl",
+    "gaussian",
+    "brightness",
+    "curves"
+  ],
+  "hiddenTools": [],
+  "placements": [
+    {
+      "id": "color",
+      "edge": "right",
+      "offset": 0
+    },
+    {
+      "id": "actions",
+      "edge": "top",
+      "offset": 0.03670441220893756
+    },
+    {
+      "id": "move",
+      "edge": "left",
+      "offset": 0.06399670001927824
+    },
+    {
+      "id": "bucket",
+      "edge": "left",
+      "offset": 0.4669694232026823
+    },
+    {
+      "id": "wand",
+      "edge": "left",
+      "offset": 0.5066060851190903
+    },
+    {
+      "id": "redo",
+      "edge": "left",
+      "offset": 0.6783649786238363
+    },
+    {
+      "id": "undo",
+      "edge": "left",
+      "offset": 0.603220448540335
+    },
+    {
+      "id": "flip",
+      "edge": "top",
+      "offset": 0.11284654460827336
+    },
+    {
+      "id": "gaussian",
+      "edge": "top",
+      "offset": 0.11675127221118974
+    },
+    {
+      "id": "expand",
+      "edge": "top",
+      "offset": 0.972276431338132
+    },
+    {
+      "id": "brightness",
+      "edge": "top",
+      "offset": 0.928543539383583
+    },
+    {
+      "id": "hsl",
+      "edge": "top",
+      "offset": 0.8937914663987888
+    },
+    {
+      "id": "curves",
+      "edge": "top",
+      "offset": 0.8531823779758659
+    },
+    {
+      "id": "gradient",
+      "edge": "top",
+      "offset": 0.8270206753309894
+    },
+    {
+      "id": "back",
+      "edge": "top",
+      "offset": 0.03943772019039823
+    },
+    {
+      "id": "help",
+      "edge": "top",
+      "offset": 0.025771182517396272
+    },
+    {
+      "id": "select",
+      "edge": "left",
+      "offset": 0.14739883650164243
+    },
+    {
+      "id": "picker",
+      "edge": "left",
+      "offset": 0.22832370051446435
+    },
+    {
+      "id": "brush",
+      "edge": "left",
+      "offset": 0.2877786933890764
+    },
+    {
+      "id": "eraser",
+      "edge": "left",
+      "offset": 0.3464079350739188
+    },
+    {
+      "id": "smudge",
+      "edge": "left",
+      "offset": 0.41742359580717225
+    },
+    {
+      "id": "paper",
+      "edge": "top",
+      "offset": 0.1319796982441966
+    },
+    {
+      "id": "adjust",
+      "edge": "top",
+      "offset": 0.048028112873329414
+    },
+    {
+      "id": "settings",
+      "edge": "top",
+      "offset": 0.12026552437265287
+    },
+    {
+      "id": "layers",
+      "edge": "right",
+      "offset": 0.09867877919613528
+    }
+  ]
+}
