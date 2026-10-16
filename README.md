@@ -28,4 +28,4 @@ docs 已含建置好的檔案，首次發布不需安裝。後續修改程式請
 
 電腦版預設工具位置依使用者提供的工作區配置。已有自訂配置者，可從塗鴉設定 → 工具列與工具顯示 → 恢復預設工具配置套用。
 
-蘑菇素材作者：[Pixerelia](https://pixerelia.itch.io/)。樹樁、籃子與結算 Logo 由使用者提供。
+蘑菇素材作者：[Pixerelia](https://pixerelia.itch.io/)。樹樁、籃子與結算 Logo 由AI生成。
