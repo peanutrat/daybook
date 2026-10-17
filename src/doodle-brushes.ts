@@ -1,10 +1,12 @@
+import {isBackgroundBrush,paintBackgroundStroke,type BackgroundProgress,type BrushSource} from './background-brushes';
 import {haiguaiBrushes} from './haiguai-brushes';
 import type {DoodleStroke,Dot} from './doodle';
-export type StrokeProgress={index:number;carry:number;seed:number};
+export type StrokeProgress={index:number;carry:number;seed:number;background?:BackgroundProgress;hatch?:Dot[]};
 export function strokeProgress(stroke:DoodleStroke):StrokeProgress{return {index:0,carry:0,seed:(Math.round(stroke.points[0].x*31+stroke.points[0].y*17)+12345)>>>0}}
 function samples(points:Dot[],spacing:number,state:StrokeProgress){const out:Dot[]=state.index===0?[points[0]]:[];let carry=state.carry;for(let i=Math.max(1,state.index);i<points.length;i++){const a=points[i-1],b=points[i],distance=Math.hypot(b.x-a.x,b.y-a.y);if(!distance)continue;for(let d=spacing-carry;d<=distance;d+=spacing){const t=d/distance;out.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,p:a.p+(b.p-a.p)*t})}carry=(carry+distance)%spacing}state.carry=carry;return out}
-export function paintModernStroke(ctx:CanvasRenderingContext2D,stroke:DoodleStroke,progress?:StrokeProgress){
+export function paintModernStroke(ctx:CanvasRenderingContext2D,stroke:DoodleStroke,progress?:StrokeProgress,source?:BrushSource){
  const {points,size,brush,color,opacity}=stroke;if(!points.length||brush==='blur')return;const state=progress??strokeProgress(stroke);if(state.index>=points.length)return;ctx.save();ctx.globalCompositeOperation=brush==='eraser'?'destination-out':'source-over';ctx.fillStyle=color;ctx.strokeStyle=color;ctx.globalAlpha=opacity;ctx.lineCap='round';ctx.lineJoin='round';
+ if(stroke.engine===4&&(isBackgroundBrush(brush)||brush==='watercolor')){paintBackgroundStroke(ctx,stroke,state,source);state.index=points.length;ctx.restore();return}
  const random=()=>{state.seed=(Math.imul(state.seed,1664525)+1013904223)>>>0;return state.seed/4294967296};
  const profile=haiguaiBrushes.find(p=>p.id===brush);
  if(profile){const mode=profile.mode,grain=profile.grain;for(const p of samples(points,Math.max(.65,size*(mode==='pixel'?.45:mode==='air'||mode==='glow'?.09:mode==='grain'?.1:.045)),state)){
