@@ -25,7 +25,7 @@
 .bookApp[data-night=true] .stamp,.bookApp[data-night=true] .bubble,.bookApp[data-night=true] .calendarTask,.bookApp[data-night=true] .taskSection{color:#303a36}
 .bookApp[data-night=true] .taskSection .muted{color:#566259}.bookApp[data-night=true] small,.bookApp[data-night=true] .muted,.bookApp[data-night=true] .sync{color:#aebac5}.bookApp[data-night=true] .noticeRead{color:var(--ink)}
 .bookApp[data-night=true] .dateBand,.bookApp[data-night=true] .dayContent{color:var(--ink)}.bookApp[data-night=true] .dateBand[style*="background"],.bookApp[data-night=true] .dayContent[style*="background"]{color:#303a36}
-.mobileLayout .navTools{flex-wrap:wrap}.mobileLayout .controls{flex-wrap:wrap}.mobileLayout .controls button{padding:6px 8px}.mobileLayout .settingsMenu{position:fixed;right:12px;top:105px}
+.mobileLayout .navTools{flex-wrap:wrap}.mobileLayout .controls{flex-wrap:wrap}.mobileLayout .controls button{padding:6px 8px}.mobileLayout nav{position:relative}.mobileLayout .settingsWrap{position:static}.mobileLayout .settingsMenu{position:absolute;left:50%;right:auto;transform:translateX(-50%);top:calc(100% + 8px);max-width:calc(100vw - 24px);max-height:65dvh;overscroll-behavior:contain}
 
 /* Empty cells outside the current month have no date-band fill. */
 .bookApp .grid .empty{background:transparent}
@@ -338,3 +338,5 @@
 .canvasGalleryActions>button,.canvasGalleryActions>label.button{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:0 0 auto;height:44px;min-height:44px;margin:0;padding:10px 14px;border-radius:10px;font-size:14px;line-height:1;white-space:nowrap}
 .canvasGalleryActions>.canvasGalleryIcon{width:44px;min-width:44px;padding:10px}
 .canvasGalleryActions .canvasGalleryIcon svg{display:block;flex:none;width:22px;height:22px}
+
+.selectionAppearance{min-width:0;margin:8px 0;padding:10px;border:1px solid var(--edge);border-radius:8px;font-size:12px}.selectionAppearance legend{padding:0 5px}.selectionAppearance>label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0}.selectionAppearance select{min-width:0;width:auto;max-width:70%;padding:6px;background:var(--paper);color:var(--ink)}.selectionAppearance input[type=color]{width:48px;height:32px;padding:3px;background:var(--paper)}.selectionAppearance small{display:block;font-size:10px;line-height:1.6}.selectionAppearance input:disabled{opacity:.35}
