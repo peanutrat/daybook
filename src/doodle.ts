@@ -6,9 +6,9 @@ export type Dot={x:number;y:number;p:number};
 export type DoodleStroke={smudgeTip?:'round'|'flat'|'soft';eraserTip?:'round'|'flat'|'pixel'|'airbrush';engine?:2|3;water?:{dilution:number;load:number};brush:Brush;color:string;size:number;opacity:number;points:Dot[]};
 export type Span=[number,number,number]; // y, inclusive start x, exclusive end x
 export type Blend='source-over'|'multiply'|'screen'|'lighter'|'overlay';
-export type GradientFill={kind:'gradient';from:{x:number;y:number};to:{x:number;y:number};colors:[string,string];opacity:number;radial?:boolean;selection?:Span[];alphaLock?:boolean};
-export type DoodleOp=GradientFill|{kind:'stroke';stroke:DoodleStroke;selection?:Span[];alphaLock?:boolean}|{kind:'cut';selection:Span[]}|{kind:'image';src:string;x:number;y:number;matrix?:[number,number,number,number,number,number]}|{kind:'adjust';settings:Adjustments;selection?:Span[]}|{kind:'fill';selection:Span[];color:string;opacity:number;alphaLock?:boolean};
-export type DoodleLayer={width?:number;height?:number;groupId?:string;outline?:{enabled:boolean;color:string;size:number};id:string;name:string;visible:boolean;opacity:number;blend:Blend;alphaLock:boolean;clip:boolean;offsetX:number;offsetY:number;ops:DoodleOp[]};
+export type GradientFill={kind:'gradient';from:{x:number;y:number};to:{x:number;y:number};colors:[string,string];opacity:number;radial?:boolean;erase?:boolean;selection?:Span[];alphaLock?:boolean};
+export type DoodleOp=GradientFill|{kind:'stroke';stroke:DoodleStroke;selection?:Span[];alphaLock?:boolean}|{kind:'cut';selection:Span[]}|{kind:'image';src:string;x:number;y:number;matrix?:[number,number,number,number,number,number]}|{kind:'adjust';settings:Adjustments;selection?:Span[]}|{kind:'fill';selection:Span[];color:string;opacity:number;alphaLock?:boolean;erase?:boolean};
+export type DoodleLayer={width?:number;height?:number;groupId?:string;outline?:{enabled:boolean;color:string;size:number;antialias?:boolean};id:string;name:string;visible:boolean;opacity:number;blend:Blend;alphaLock:boolean;clip:boolean;offsetX:number;offsetY:number;ops:DoodleOp[]};
 export type Doodle={width?:number;height?:number;dpi?:number;version:1;strokes:DoodleStroke[];layers?:DoodleLayer[];groups?:{id:string;name:string;collapsed?:boolean;visible?:boolean}[];paperVisible?:boolean;paperExport?:boolean;paperColor?:string;paper?:'dots'|'grid'|'white'|'transparent'|'custom'};
 export const DRAW_WIDTH=800,DRAW_HEIGHT=440;
 export const clamp=(v:number,min=0,max=1)=>Math.max(min,Math.min(max,v));
