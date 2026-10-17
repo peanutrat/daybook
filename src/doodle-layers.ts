@@ -6,7 +6,7 @@ import {paintModernStroke,strokeProgress,type StrokeProgress} from './doodle-bru
 import {DRAW_WIDTH as W,DRAW_HEIGHT as H,paintStroke,type Doodle,type DoodleLayer,type DoodleStroke,type Span} from './doodle';
 export function newLayer(name='圖層 1',width=W,height=H):DoodleLayer{return {width,height,id:crypto.randomUUID(),name,visible:true,opacity:1,blend:'source-over',alphaLock:false,clip:false,offsetX:0,offsetY:0,ops:[]}}
 export function layered(value?:Doodle):Doodle{if(value?.layers?.length){if(value.width&&value.height&&value.layers.some(l=>l.width!==value.width||l.height!==value.height))return {...value,layers:value.layers.map(l=>({...l,width:value.width,height:value.height}))};return value;}return {version:1,strokes:[],...canvasSize(value),paper:value?.paper??'dots',paperVisible:value?.paperVisible,paperColor:value?.paperColor,paperExport:value?.paperExport,layers:[{...newLayer('圖層 1',canvasSize(value).width,canvasSize(value).height),ops:(value?.strokes??[]).map(stroke=>({kind:'stroke',stroke}))}]}}
-export function hasDoodle(value?:Doodle){return !!(value?.strokes?.length||value?.layers?.some(l=>l.ops.some(o=>o.kind==='image'||o.kind==='stroke'||o.kind==='fill')))}
+export function hasDoodle(value?:Doodle){return !!(value?.strokes?.length||value?.layers?.some(l=>l.ops.some(o=>o.kind==='image'||o.kind==='stroke'||o.kind==='fill'||o.kind==='gradient')))}
 export function makeCanvas(w=W,h=H){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
 const images=new Map<string,HTMLImageElement>();
 export async function loadDoodleImages(value:Doodle){await Promise.all((value.layers??[]).flatMap(l=>l.ops.filter(o=>o.kind==='image').map(async o=>{if(o.kind!=='image'||images.has(o.src))return;const im=new Image();im.src=o.src;await im.decode();images.set(o.src,im)})))}
@@ -31,6 +31,7 @@ export function renderLayer(layer:DoodleLayer,preview?:DoodleStroke,selection?:S
  for(const op of layer.ops){ctx.save();if(op.kind==='cut'){ctx.globalCompositeOperation='destination-out';maskPath(ctx,op.selection);ctx.fill()}
   else if(op.kind==='image'){const image=images.get(op.src);if(image){if(op.matrix)ctx.transform(...op.matrix);ctx.drawImage(image,op.x,op.y)}}
   else if(op.kind==='adjust')adjustCanvas(c,op.settings,op.selection);
+  else if(op.kind==='gradient'){const length=Math.hypot(op.to.x-op.from.x,op.to.y-op.from.y);if(length>.01){ctx.globalCompositeOperation=op.alphaLock?'source-atop':'source-over';ctx.globalAlpha=op.opacity;if(op.selection){maskPath(ctx,op.selection);ctx.clip()}const gradient=op.radial?ctx.createRadialGradient(op.from.x,op.from.y,0,op.from.x,op.from.y,length):ctx.createLinearGradient(op.from.x,op.from.y,op.to.x,op.to.y);gradient.addColorStop(0,op.colors[0]);gradient.addColorStop(1,op.colors[1]);ctx.fillStyle=gradient;ctx.fillRect(0,0,W,H)}}
   else if(op.kind==='fill'){ctx.globalCompositeOperation=op.alphaLock?'source-atop':'source-over';ctx.globalAlpha=op.opacity;ctx.fillStyle=op.color;maskPath(ctx,op.selection);ctx.fill()}
   else if(op.stroke.brush==='smudge')smudgeStroke(c,op.stroke,op.selection,op.alphaLock);
   else if(op.stroke.brush==='blur')blurStroke(c,op.stroke,op.selection,op.alphaLock);

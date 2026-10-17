@@ -2,6 +2,7 @@
   "pinnedTools": [
     "gradient",
     "flip",
+    "flipVertical",
     "hsl",
     "gaussian",
     "brightness",
@@ -9,6 +10,16 @@
   ],
   "hiddenTools": [],
   "placements": [
+    {
+      "id": "flipVertical",
+      "edge": "top",
+      "offset": 0.114
+    },
+    {
+      "id": "gradientFill",
+      "edge": "left",
+      "offset": 0.49
+    },
     {
       "id": "color",
       "edge": "right",
