@@ -2,24 +2,18 @@
   "pinnedTools": [
     "gradient",
     "flip",
-    "flipVertical",
     "hsl",
     "gaussian",
     "brightness",
-    "curves"
+    "curves",
+    "flipVertical",
+    "outline"
   ],
-  "hiddenTools": [],
+  "hiddenTools": [
+    "wand",
+    "outline"
+  ],
   "placements": [
-    {
-      "id": "flipVertical",
-      "edge": "top",
-      "offset": 0.114
-    },
-    {
-      "id": "gradientFill",
-      "edge": "left",
-      "offset": 0.49
-    },
     {
       "id": "color",
       "edge": "right",
@@ -36,24 +30,9 @@
       "offset": 0.06399670001927824
     },
     {
-      "id": "bucket",
-      "edge": "left",
-      "offset": 0.4669694232026823
-    },
-    {
       "id": "wand",
       "edge": "left",
       "offset": 0.5066060851190903
-    },
-    {
-      "id": "redo",
-      "edge": "left",
-      "offset": 0.6783649786238363
-    },
-    {
-      "id": "undo",
-      "edge": "left",
-      "offset": 0.603220448540335
     },
     {
       "id": "flip",
@@ -144,6 +123,36 @@
       "id": "layers",
       "edge": "right",
       "offset": 0.09867877919613528
+    },
+    {
+      "id": "flipVertical",
+      "edge": "top",
+      "offset": 0.11384654460827336
+    },
+    {
+      "id": "bucket",
+      "edge": "left",
+      "offset": 0.45623450653381065
+    },
+    {
+      "id": "gradientFill",
+      "edge": "left",
+      "offset": 0.533856290186621
+    },
+    {
+      "id": "redo",
+      "edge": "left",
+      "offset": 0.7237820122700314
+    },
+    {
+      "id": "undo",
+      "edge": "left",
+      "offset": 0.6478116931962941
+    },
+    {
+      "id": "outline",
+      "edge": "top",
+      "offset": 0.691526778548562
     }
   ]
 }
