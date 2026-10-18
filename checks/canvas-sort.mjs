@@ -3,7 +3,7 @@ import fs from 'node:fs';import vm from 'node:vm';import ts from 'typescript';
 let hooks=[],cursor=0,hit=null,inside=true;
 const fakeReact={useRef(value){const i=cursor++;return hooks[i]??(hooks[i]={current:value})},useState(initial){const i=cursor++;if(!(i in hooks))hooks[i]=initial;return [hooks[i],value=>hooks[i]=value]}};
 const module={exports:{}};
-vm.runInNewContext(ts.transpileModule(fs.readFileSync(new URL('../src/useCanvasSort.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{module,exports:module.exports,require:()=>fakeReact,document:{elementFromPoint:()=>hit?{closest:()=>({dataset:{sortId:hit}})}:null}});
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(new URL('../src/useCanvasSort.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{module,exports:module.exports,require:name=>name==='react'?fakeReact:{t:value=>value},document:{elementFromPoint:()=>hit?{closest:()=>({dataset:{sortId:hit}})}:null}});
 const {default:useSort,moveById}=module.exports;
 let items=[{id:'a',art:{n:1}},{id:'b',art:{n:2}},{id:'c',art:{n:3}}],sort,moves=0;
 const original=items.slice();

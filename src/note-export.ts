@@ -1,7 +1,8 @@
+import {t as uiText} from "./i18n.ts";
 import {tableCells} from './note-table';
 import {noteBlocks,plainNote,type NoteToken} from './note-format';import type {Picture} from './media-helpers';
 function download(blob:Blob,name:string){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-function filename(text:string,date:string){return '筆記-'+date+'-'+(plainNote(text).split('\n').find(l=>l.trim())||'圖片筆記').slice(0,22).replace(/[\\/:*?"<>|]/g,'_')}
+function filename(text:string,date:string){return uiText("筆記-")+date+'-'+(plainNote(text).split('\n').find(l=>l.trim())||uiText("圖片筆記")).slice(0,22).replace(/[\\/:*?"<>|]/g,'_')}
 export function exportNoteText(text:string,date:string){download(new Blob(['\ufeff'+plainNote(text)],{type:'text/plain;charset=utf-8'}),filename(text,date)+'.txt')}
 export async function exportNoteImage(text:string,date:string,images:Picture[],colors:{paper:string;ink:string;accent:string}){
  await document.fonts.ready;const c=document.createElement('canvas');c.width=900;const ctx=c.getContext('2d')!,ops:(()=>void)[]=[];const left=48,max=804;let y=76;
@@ -29,6 +30,6 @@ export async function exportNoteImage(text:string,date:string,images:Picture[],c
   if(line.list){const marker=line.list.marker,top=y;ops.push(()=>{ctx.font='20px "Microsoft JhengHei", sans-serif';ctx.fillStyle=color;ctx.fillText(marker,left,top+size)})}
   y=paint(rows(line.tokens,max-indent,size,bold),left+indent,y,color,line.align,max-indent)+8;
  }
- for(const pic of images){const im=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('圖片無法匯出'));im.src=pic.display});const w=Math.min(max,im.width),h=im.height*w/im.width,top=y;y+=h+24;ops.push(()=>ctx.drawImage(im,left,top,w,h))}
- const height=Math.ceil(y+45);if(height>30000)throw Error('筆記太長，請先分成幾則再匯出圖片');c.height=height;ctx.fillStyle=colors.paper;ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle=colors.ink;ctx.globalAlpha=.6;ctx.font='16px sans-serif';ctx.fillText('日日手帳 · '+date,48,40);ctx.globalAlpha=1;ops.forEach(draw=>draw());const blob=await new Promise<Blob|null>(resolve=>c.toBlob(resolve,'image/png'));if(!blob)throw Error('圖片匯出失敗');download(blob,filename(text,date)+'.png');
+ for(const pic of images){const im=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error(uiText("圖片無法匯出")));im.src=pic.display});const w=Math.min(max,im.width),h=im.height*w/im.width,top=y;y+=h+24;ops.push(()=>ctx.drawImage(im,left,top,w,h))}
+ const height=Math.ceil(y+45);if(height>30000)throw Error(uiText("筆記太長，請先分成幾則再匯出圖片"));c.height=height;ctx.fillStyle=colors.paper;ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle=colors.ink;ctx.globalAlpha=.6;ctx.font='16px sans-serif';ctx.fillText(uiText("日日手帳 · ")+date,48,40);ctx.globalAlpha=1;ops.forEach(draw=>draw());const blob=await new Promise<Blob|null>(resolve=>c.toBlob(resolve,'image/png'));if(!blob)throw Error(uiText("圖片匯出失敗"));download(blob,filename(text,date)+'.png');
 }

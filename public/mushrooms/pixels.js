@@ -1,3 +1,4 @@
+import {t as uiText} from "./i18n.js";
 // Original pixel sprites drawn on a 48 × 64 grid. No external artwork.
 export function drawPlant(ctx,p,stage=4,variant=0){
 ctx.clearRect(0,0,48,64);const r=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(x,y,w,h)},dot=(x,y,c)=>r(x,y,1,1,c);
@@ -12,9 +13,9 @@ const base=43,top=[0,34,27,22,17][stage];r(23,top,2,base-top,'#405443');r(24,top
 if(stage>=2){leaf(24,39,false);leaf(23,32,true);r(18,29,1,13,'#536b4a');r(29,27,1,15,'#536b4a');leaf(18,34,true);leaf(29,34,false)}
 if(stage<3)return;
 const head=(x,y,bloom=true)=>{if(!bloom){oval(x,y,2,3,p.shadow);r(x-1,y-2,2,2,p.light);r(x-2,y+3,4,1,'#56744b');return}
-if(p.short==='番茄'||p.short==='草莓'){oval(x,y,4,p.short==='草莓'?5:4,p.shadow);oval(x-1,y-1,3,3,p.color);r(x-2,y-2,2,2,p.light);r(x-3,y-5,6,2,'#56744b');r(x,y-6,2,3,'#8c9b5c');if(p.short==='草莓'){dot(x+1,y,p.light);dot(x-2,y+2,p.light)}}
-else if(p.short==='薰衣草'){r(x-1,y-7,2,14,'#50694c');for(let j=0;j<5;j++){r(x-3+(j%2),y-7+j*2,5,2,p.shadow);r(x-2,y-7+j*2,3,1,p.color);dot(x-1,y-7+j*2,p.light)}}
-else if(p.short==='繡球花'){oval(x,y,7,6,p.shadow);for(const [a,b] of [[-4,-2],[0,-4],[4,-1],[-2,2],[3,3]]){r(x+a-2,y+b-1,4,3,p.color);r(x+a-1,y+b-2,2,5,p.color);dot(x+a,y+b,p.light)}}
+if(p.short===uiText("番茄")||p.short===uiText("草莓")){oval(x,y,4,p.short===uiText("草莓")?5:4,p.shadow);oval(x-1,y-1,3,3,p.color);r(x-2,y-2,2,2,p.light);r(x-3,y-5,6,2,'#56744b');r(x,y-6,2,3,'#8c9b5c');if(p.short===uiText("草莓")){dot(x+1,y,p.light);dot(x-2,y+2,p.light)}}
+else if(p.short===uiText("薰衣草")){r(x-1,y-7,2,14,'#50694c');for(let j=0;j<5;j++){r(x-3+(j%2),y-7+j*2,5,2,p.shadow);r(x-2,y-7+j*2,3,1,p.color);dot(x-1,y-7+j*2,p.light)}}
+else if(p.short===uiText("繡球花")){oval(x,y,7,6,p.shadow);for(const [a,b] of [[-4,-2],[0,-4],[4,-1],[-2,2],[3,3]]){r(x+a-2,y+b-1,4,3,p.color);r(x+a-1,y+b-2,2,5,p.color);dot(x+a,y+b,p.light)}}
 else{for(const [a,b] of [[-4,0],[4,0],[0,-4],[0,4],[-3,-3],[3,-3],[-3,3],[3,3]]){r(x+a-2,y+b-2,4,4,p.shadow);r(x+a-1,y+b-2,3,3,p.color);dot(x+a,y+b-2,p.light)}oval(x,y,3,3,'#8b6136');r(x-1,y-1,3,3,'#d9ad55');dot(x-1,y-1,'#ffe3a2')}
 };
 head(24,top,stage===4);head(18,top+10,stage===4);head(30,top+7,stage===4);leaf(25,25,false);leaf(20,34,true);

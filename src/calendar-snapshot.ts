@@ -1,3 +1,4 @@
+import {t as uiText} from "./i18n.ts";
 // Paint the visible calendar's measured layout. No independent stamp/task wrapping.
 export async function paintCalendarSnapshot(ctx:CanvasRenderingContext2D,grid:HTMLElement,x:number,y:number,width:number){
  const bounds=grid.getBoundingClientRect(),scale=width/bounds.width;
@@ -26,7 +27,7 @@ export async function paintCalendarSnapshot(ctx:CanvasRenderingContext2D,grid:HT
   }else for(const child of Array.from(el.childNodes)){
    if(child.nodeType===1){paint(child as HTMLElement);continue}if(child.nodeType!==3||!child.textContent?.trim())continue;
    ctx.font=`${css.fontStyle} ${css.fontWeight} ${css.fontSize} ${css.fontFamily}`;ctx.fillStyle=css.color;ctx.textAlign='left';ctx.textBaseline='alphabetic';
-   const size=parseFloat(css.fontSize),metrics=ctx.measureText('國Mg'),ascent=metrics.fontBoundingBoxAscent||size*.85,descent=metrics.fontBoundingBoxDescent||size*.15;
+   const size=parseFloat(css.fontSize),metrics=ctx.measureText(uiText("國Mg")),ascent=metrics.fontBoundingBoxAscent||size*.85,descent=metrics.fontBoundingBoxDescent||size*.15;
    const range=document.createRange();
    for(const {segment,index} of segmenter.segment(child.textContent)){
     range.setStart(child,index);range.setEnd(child,index+segment.length);const box=range.getBoundingClientRect();if(!box.width||!box.height)continue;

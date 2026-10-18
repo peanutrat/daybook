@@ -1,15 +1,16 @@
+import {t as uiText} from "./i18n.ts";
 import {dotRadius as halftoneRadius} from './halftone';
 import type {DoodleStroke,Dot} from './doodle';
 import type {StrokeProgress} from './doodle-brushes';
 
 export const backgroundBrushes=[
- {id:'gouache',name:'水粉平頭筆',hint:'厚實鋪色 · 輕微混色與紙紋'},
- {id:'dryTexture',name:'乾刷紋理筆',hint:'斷續刷痕 · 木石與地面質感'},
- {id:'softMix',name:'柔邊混色筆',hint:'柔和過渡 · 帶入目前圖層底色'},
- {id:'scatter',name:'散布色塊筆',hint:'不規則色塊 · 樹叢與碎石'},
- {id:'hatching',name:'排線筆',hint:'隨筆跡彎曲的平行細線'},
- {id:'halftoneSoft',name:'柔邊網點筆',hint:'中央密實 · 邊緣漸小網點 · 鋪色與背景'},
- {id:'polkaDots',name:'圓點筆',hint:'整齊圓點 · 固定在畫布上的花紋'},
+ {id:'gouache',name:uiText("水粉平頭筆"),hint:uiText("厚實鋪色 · 輕微混色與紙紋")},
+ {id:'dryTexture',name:uiText("乾刷紋理筆"),hint:uiText("斷續刷痕 · 木石與地面質感")},
+ {id:'softMix',name:uiText("柔邊混色筆"),hint:uiText("柔和過渡 · 帶入目前圖層底色")},
+ {id:'scatter',name:uiText("散布色塊筆"),hint:uiText("不規則色塊 · 樹叢與碎石")},
+ {id:'hatching',name:uiText("排線筆"),hint:uiText("隨筆跡彎曲的平行細線")},
+ {id:'halftoneSoft',name:uiText("柔邊網點筆"),hint:uiText("中央密實 · 邊緣漸小網點 · 鋪色與背景")},
+ {id:'polkaDots',name:uiText("圓點筆"),hint:uiText("整齊圓點 · 固定在畫布上的花紋")},
 ] as const;
 export const availableBackgroundBrushes=backgroundBrushes.filter(b=>b.id!=='gouache'&&b.id!=='scatter');
 export type BackgroundBrush=typeof backgroundBrushes[number]['id'];

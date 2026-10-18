@@ -1,3 +1,4 @@
+import {t as uiText} from "./i18n.ts";
 import {tableCells,mergeTableCells,splitTableCell,type NoteTable} from './note-table';
 import {forwardRef,useEffect,useImperativeHandle,useLayoutEffect,useRef} from 'react';
 import {renderNoteDOM,serializeNoteDOM} from './rich-note-dom';
@@ -38,7 +39,7 @@ export default forwardRef<RichNoteHandle,{text:string;onChange:(text:string)=>vo
    if(kind==='highlight'){wrapper.dataset.noteBackground=value||'#e3c34d';wrapper.className='richHighlight';wrapper.style.setProperty('--highlight-color',value||'#e3c34d')}
    if(['size','small','heading','subtitle','body'].includes(kind)){const size=kind==='small'?'12':kind==='heading'?'32':kind==='subtitle'?'24':kind==='body'?'14':value!;wrapper.dataset.noteSize=size;wrapper.style.fontSize=size+'px';if(kind==='heading'||kind==='subtitle'){wrapper.style.fontWeight='700';const color=getComputedStyle(host).getPropertyValue('--accent').trim();if(/^#[0-9a-f]{6}$/i.test(color)){wrapper.dataset.noteColor=color;wrapper.style.color=color}}}
    if(kind==='spoiler'){wrapper.dataset.noteSpoiler='true';wrapper.className='richSpoiler'}
-   wrapper.append(document.createTextNode('文字'));range.insertNode(wrapper);const next=document.createRange();next.selectNodeContents(wrapper);choose(next);save();
+   wrapper.append(document.createTextNode(uiText("文字")));range.insertNode(wrapper);const next=document.createRange();next.selectNodeContents(wrapper);choose(next);save();
   },
   list(ordered,marker){const host=root.current!,range=current(),start=textOffset(host,range.startContainer,range.startOffset),end=textOffset(host,range.endContainer,range.endOffset);const index=logicalIndex(range);replace(listNote(serializeNoteDOM(host),start,end,ordered,marker,range.collapsed&&index>=0?index:undefined),start,end)},
   table(rows,columns){insertTable(rows,columns)}
@@ -64,7 +65,7 @@ export default forwardRef<RichNoteHandle,{text:string;onChange:(text:string)=>vo
   const up=(event:PointerEvent)=>{move(event);cleanup();if(Math.hypot(x-startX,y-startY)<10)return;const vertical=Math.abs(y-startY)>Math.abs(x-startX),ratio=vertical?((startX+x)/2-rect.left)/rect.width:((startY+y)/2-rect.top)/rect.height;if(splitTableCell(b,r,c,vertical?'column':'row',ratio))apply()};
   const cancel=()=>cleanup();document.addEventListener('pointermove',move);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',cancel);tableCleanup.current=cleanup;
  }
- return <div ref={root} className={'richNoteEditor'+(tableMode?' tableTool-'+tableMode:'')} contentEditable suppressContentEditableWarning role="textbox" aria-multiline="true" aria-label="筆記內容" onInput={()=>{save();normalizeSyntax()}} onCompositionStart={()=>{composing.current=true}} onCompositionEnd={()=>{composing.current=false;normalizeSyntax()}} onPointerUp={remember} onKeyUp={remember}
+ return <div ref={root} className={'richNoteEditor'+(tableMode?' tableTool-'+tableMode:'')} contentEditable suppressContentEditableWarning role="textbox" aria-multiline="true" aria-label={uiText("筆記內容")} onInput={()=>{save();normalizeSyntax()}} onCompositionStart={()=>{composing.current=true}} onCompositionEnd={()=>{composing.current=false;normalizeSyntax()}} onPointerUp={remember} onKeyUp={remember}
  onPointerDown={e=>{
  const target=e.target as HTMLElement,cell=target.closest('td,th') as HTMLTableCellElement|null;if(!cell){if(tableMode==='draw')drawTableFrame(e);return}if(tableMode){tableGesture(e,cell);return}const rect=cell.getBoundingClientRect(),table=cell.closest('table')!,right=Math.abs(e.clientX-rect.right)<9,bottom=Math.abs(e.clientY-rect.bottom)<9;if(!right&&!bottom)return;
  e.preventDefault();const row=cell.parentElement as HTMLTableRowElement,rows=Array.from(table.rows),width=table.getBoundingClientRect().width,startX=e.clientX,startY=e.clientY,initial=rect.width,initialHeight=row.getBoundingClientRect().height,column=Number(cell.dataset.noteColumn??cell.cellIndex)+cell.colSpan-1,initialWidths=(JSON.parse(table.dataset.noteTableMeta||'{}').widths||Array.from(table.querySelectorAll('col')).map(()=>100/table.querySelectorAll('col').length)).map((w:number)=>w/100*width);let meta=JSON.parse(table.dataset.noteTableMeta||'{}');

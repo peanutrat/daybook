@@ -1,7 +1,8 @@
+import {t as uiText} from "./i18n.ts";
 import {colorContrast,readableTaskInk} from './task-colors.ts';
 export type ThemeColors={page:string;paper:string;ink:string;accent:string;soft:string;notice:string};
 export type CustomTheme={id:string;name:string;colors:ThemeColors};
-export const themeFields=[['page','頁面底色'],['paper','卡片底色'],['ink','文字顏色'],['accent','主題重點色'],['soft','日期與選取底色'],['notice','公告底色']] as const;
+export const themeFields=[['page',uiText("頁面底色")],['paper',uiText("卡片底色")],['ink',uiText("文字顏色")],['accent',uiText("主題重點色")],['soft',uiText("日期與選取底色")],['notice',uiText("公告底色")]] as const;
 export const baseThemes:Record<string,ThemeColors>={
 sage:{page:'#f5f3ed',paper:'#fdfdfa',ink:'#3d4942',accent:'#6e886d',soft:'#e8ede3',notice:'#dfeef0'},
 rose:{page:'#f8f0f1',paper:'#fffbfc',ink:'#5a424a',accent:'#aa7585',soft:'#f1e1e6',notice:'#f4e5dd'},

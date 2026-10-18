@@ -1,3 +1,4 @@
+import {t as uiText} from "./i18n.ts";
 import {useRef,useState,type PointerEvent,type KeyboardEvent} from 'react';
 
 // Reuse object identities: reordering must never change the artwork or layer data.
@@ -36,7 +37,7 @@ export default function useCanvasSort(ids:string[],onMove:(from:string,to:string
   onLostPointerCapture(e:PointerEvent<HTMLElement>){end(e,true)},
   onKeyDown(e:KeyboardEvent<HTMLButtonElement>){if(e.key==='Escape'){drag.current=null;setVisual(null);e.stopPropagation();return}if(e.key!=='ArrowUp'&&e.key!=='ArrowDown')return;e.preventDefault();e.stopPropagation();const to=ids[ids.indexOf(id)+(e.key==='ArrowUp'?-1:1)];if(to)onMove(id,to)},
   onClick(e:React.MouseEvent<HTMLButtonElement>){e.preventDefault();e.stopPropagation()},
-  'aria-label':'拖曳排序',title:'拖曳排序（↑／↓ 可調整順序）',className:'canvasSortHandle',
+  'aria-label':uiText("拖曳排序"),title:uiText("拖曳排序（↑／↓ 可調整順序）"),className:'canvasSortHandle',
  }}
  function row(id:string){return {'data-sort-id':id,'data-dragging':visual?.id===id||undefined,'data-drop':visual?.over===id&&visual.id!==id?(ids.indexOf(visual.id)<ids.indexOf(id)?'after':'before'):undefined}}
  function direct(id:string){return {
