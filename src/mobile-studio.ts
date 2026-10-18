@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react';import type {DrawingPreferences,ToolId,ToolPlacement} from './workspace-config';
 export const mobileQuery='(pointer: coarse), (max-width: 650px)';
 export function useMobileStudio(){const [mobile,setMobile]=useState(()=>typeof window!=='undefined'&&!!window.matchMedia?.(mobileQuery).matches);useEffect(()=>{if(typeof window==='undefined'||!window.matchMedia)return;const query=window.matchMedia(mobileQuery),update=()=>setMobile(query.matches);update();query.addEventListener('change',update);return()=>query.removeEventListener('change',update)},[]);return mobile}
-export const mobileMainTools:ToolId[]=['back','actions','select','move','brush','smudge','eraser','layers','color','undo','redo'];
+export const mobileMainTools:ToolId[]=['workspace','help','flip','flipVertical','back','actions','select','move','brush','smudge','eraser','layers','color','undo','redo'];
 export const mobileHiddenDefaults:ToolId[]=['picker','bucket','wand','paper','help','settings','expand'];
 export function studioPreferences(p:DrawingPreferences,mobile:boolean):DrawingPreferences{return mobile?{...p,placements:p.mobilePlacements,hiddenTools:p.mobileHiddenTools,pinnedTools:p.mobilePinnedTools??[]}:p}
 export function mergeStudioPreferences(previous:DrawingPreferences,next:DrawingPreferences,mobile:boolean):DrawingPreferences{return mobile?{...next,placements:previous.placements,hiddenTools:previous.hiddenTools,pinnedTools:previous.pinnedTools,mobilePinnedTools:next.pinnedTools,mobilePlacements:next.placements,mobileHiddenTools:next.hiddenTools}:next}

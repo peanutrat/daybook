@@ -368,3 +368,21 @@
 .richNoteEditor.tableTool-draw,.richNoteEditor.tableTool-erase{touch-action:none}.tableTool-draw td,.tableTool-draw th{cursor:crosshair}.tableTool-erase td,.tableTool-erase th{cursor:cell}.noteTableGuide{position:fixed;z-index:1000;background:#5a91c9;pointer-events:none;box-shadow:0 0 0 1px white}.noteTable{table-layout:fixed}.noteTable td,.noteTable th{overflow-wrap:anywhere}
 
 .noteTableFrame{background:transparent;border:2px solid #5a91c9;box-sizing:border-box}
+/* Full-width phone adjustment sliders with larger touch targets. */
+.mobileStudio .colorAdjustmentSlider{grid-template-columns:minmax(0,1fr) 56px!important;gap:2px 8px!important;margin:8px 0 12px;font-size:12px!important}
+.mobileStudio .colorAdjustmentSlider>span{grid-row:1;grid-column:1}
+.mobileStudio .colorAdjustmentSlider input[type=number]{grid-row:1;grid-column:2;width:56px!important;min-height:32px;font-size:12px!important}
+.mobileStudio .colorAdjustmentSlider input[type=range]{grid-row:2;grid-column:1/-1;height:44px;min-height:44px;touch-action:none;user-select:none;-webkit-user-select:none}
+.mobileStudio .colorAdjustmentSlider input[type=range]::-webkit-slider-runnable-track{height:10px}
+.mobileStudio .colorAdjustmentSlider input[type=range]::-moz-range-track{height:10px}
+.mobileStudio .colorAdjustmentSlider input[type=range]::-webkit-slider-thumb{width:28px;height:28px;margin-top:-10px;border-width:3px}
+.mobileStudio .colorAdjustmentSlider input[type=range]::-moz-range-thumb{width:24px;height:24px;border-width:3px}
+.mobileStudio .layerBlendOpacity{grid-template-columns:minmax(0,1fr) 44px;gap:4px 8px}
+.mobileStudio .layerBlendOpacity select{grid-column:1;grid-row:1;min-height:36px;font-size:12px;padding:6px}
+.mobileStudio .layerBlendOpacity output{grid-column:2;grid-row:1;font-size:12px}
+.mobileStudio .compactLayerPanel .layerBlendOpacity input[type=range]{grid-column:1/-1;grid-row:2;height:44px;min-height:44px;border:0;background-size:100% 18px,12px 18px;background-position:center;background-repeat:no-repeat,repeat-x;touch-action:none;user-select:none;-webkit-user-select:none}
+.mobileStudio .layerBlendOpacity input[type=range]::-webkit-slider-runnable-track{height:18px}
+.mobileStudio .layerBlendOpacity input[type=range]::-moz-range-track{height:18px}
+.mobileStudio .layerBlendOpacity input[type=range]::-webkit-slider-thumb{width:22px;height:32px;margin-top:-7px;border-radius:5px;border-width:2px}
+.mobileStudio .layerBlendOpacity input[type=range]::-moz-range-thumb{width:18px;height:28px;border-radius:5px;border-width:2px}
+.mobileStudio .doodleSlider input[type=range]{height:44px;min-height:44px;touch-action:none}
