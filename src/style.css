@@ -386,3 +386,5 @@
 .mobileStudio .layerBlendOpacity input[type=range]::-webkit-slider-thumb{width:22px;height:32px;margin-top:-7px;border-radius:5px;border-width:2px}
 .mobileStudio .layerBlendOpacity input[type=range]::-moz-range-thumb{width:18px;height:28px;border-radius:5px;border-width:2px}
 .mobileStudio .doodleSlider input[type=range]{height:44px;min-height:44px;touch-action:none}
+
+.canvasColorDropGhost{position:fixed;z-index:1000;width:30px;height:30px;border:2px solid white;outline:1px solid #3338;border-radius:50%;box-shadow:0 3px 10px #0004;transform:translate(-50%,-50%);pointer-events:none}.mobileStudio .canvasColorButton{touch-action:none;user-select:none;-webkit-user-select:none}
