@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';import ts from 'typescript';
 import {noteBlocks,blocksSyntax,plainNote,portableNote,tableSyntax,bulletSymbols} from '../src/note-format.ts';
-const source=fs.readFileSync(new URL('../src/note-layout.ts',import.meta.url),'utf8').replace("from './note-format'","from '"+new URL('../src/note-format.ts',import.meta.url).href+"'");
+const source=fs.readFileSync(new URL('../src/note-layout.ts',import.meta.url),'utf8').replace("from './note-table'","from '"+new URL('../src/note-table.ts',import.meta.url).href+"'").replace("from './note-format'","from '"+new URL('../src/note-format.ts',import.meta.url).href+"'");
 const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const {paragraphNote,tableNote}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
 assert.deepEqual(bulletSymbols,['•','☐','☑','☒','→','★']);

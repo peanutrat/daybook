@@ -1,3 +1,4 @@
+import {tableCells} from './note-table';
 import {noteBlocks,plainNote,type NoteToken} from './note-format';import type {Picture} from './media-helpers';
 function download(blob:Blob,name:string){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 function filename(text:string,date:string){return '筆記-'+date+'-'+(plainNote(text).split('\n').find(l=>l.trim())||'圖片筆記').slice(0,22).replace(/[\\/:*?"<>|]/g,'_')}
@@ -16,11 +17,12 @@ export async function exportNoteImage(text:string,date:string,images:Picture[],c
   }return top;
  }
  for(const block of noteBlocks(text)){
-  if(block.type==='table'){const cols=Math.max(1,block.rows[0]?.length||1),widths=Array.from({length:cols},(_,i)=>(block.widths?.[i]??100/cols)*max/100),positions=widths.map((_,i)=>widths.slice(0,i).reduce((a,b)=>a+b,0));y+=12;
-   block.rows.forEach((row,r)=>{const rendered=row.map((cell,col)=>rows(cell,widths[col]-20,cols>6?14:18,r===0&&block.header!==false)),height=Math.max(block.heights?.[r]||42,...rendered.map(lines=>lines.reduce((n,line)=>n+line.height,0)+16)),rowTop=y;
-    ops.push(()=>{if(r===0&&block.header!==false){ctx.globalAlpha=.12;ctx.fillStyle=colors.accent;ctx.fillRect(left,rowTop,max,height);ctx.globalAlpha=1}ctx.strokeStyle=colors.accent;ctx.globalAlpha=.4;for(let col=0;col<cols;col++)ctx.strokeRect(left+positions[col],rowTop,widths[col],height);ctx.globalAlpha=1});
-    rendered.forEach((lines,col)=>paint(lines,left+positions[col]+10,rowTop+8,colors.ink));y+=height;
-   });y+=14;continue;
+  if(block.type==='table'){const cols=Math.max(1,block.rows[0]?.length||1),widths=Array.from({length:cols},(_,i)=>(block.widths?.[i]??100/cols)*max/100),positions=[0,...widths.map((_,i)=>widths.slice(0,i+1).reduce((a,b)=>a+b,0))],cells=tableCells(block),heights=block.rows.map((_,r)=>block.heights?.[r]||42);y+=12;
+   const rendered=cells.map(cell=>{const width=positions[cell.c+cell.cs]-positions[cell.c];return {cell,width,lines:rows(cell.tokens,width-20,cols>6?14:18,cell.r===0&&block.header!==false)}});
+   for(const {cell,lines} of rendered){const needed=lines.reduce((n,line)=>n+line.height,0)+16,available=heights.slice(cell.r,cell.r+cell.rs).reduce((a,b)=>a+b,0);if(needed>available)heights[cell.r+cell.rs-1]+=needed-available}
+   const tops=[y,...heights.map((_,i)=>y+heights.slice(0,i+1).reduce((a,b)=>a+b,0))];
+   for(const {cell,width,lines} of rendered){const x=left+positions[cell.c],top=tops[cell.r],height=tops[cell.r+cell.rs]-top;ops.push(()=>{if(cell.r===0&&block.header!==false){ctx.globalAlpha=.12;ctx.fillStyle=colors.accent;ctx.fillRect(x,top,width,height);ctx.globalAlpha=1}ctx.strokeStyle=colors.accent;ctx.globalAlpha=.4;ctx.strokeRect(x,top,width,height);ctx.globalAlpha=1});paint(lines,x+10,top+8,colors.ink,cell.align,width-20)}
+   y=tops.at(-1)!+14;continue;
   }
   const line=block.line,size=line.kind==='heading'?32:line.kind==='subtitle'?25:line.kind==='small'?16:22,bold=line.kind==='heading'||line.kind==='subtitle',color=bold?colors.accent:colors.ink;
   if(bold)y+=10;const indent=(line.list?48:0)+(line.indent||0)*24+(line.quote?24:0);if(line.quote){const top=y,height=rows(line.tokens,max-indent,size,bold).reduce((n,r)=>n+r.height,0);ops.push(()=>{ctx.fillStyle=colors.accent;ctx.globalAlpha=.5;ctx.fillRect(left+(line.indent||0)*24,top,4,height);ctx.globalAlpha=1})}

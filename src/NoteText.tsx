@@ -7,6 +7,8 @@ import {exportNoteText,exportNoteImage} from './note-export';import type {Pictur
 type Panel='format'|'color'|'list'|'table'|'symbols'|null;
 export default function NoteText({text,onChange,date,images=[],draft=false,symbols=[],onSymbolsChange,findRequest,findQuery='',activeMatch=-1}:{text:string;onChange:(text:string)=>void;date:string;images?:Picture[];draft?:boolean;symbols?:string[];onSymbolsChange?:(symbols:string[])=>void;findRequest?:unknown;findQuery?:string;activeMatch?:number}){
  const [editing,setEditing]=useState(draft),[expanded,setExpanded]=useState(false),[long,setLong]=useState(false),[exporting,setExporting]=useState(false),[error,setError]=useState(''),[panel,setPanel]=useState<Panel>(null);
+ const [tableMode,setTableMode]=useState<'draw'|'erase'|null>(null);
+ useEffect(()=>{if(!editing)setTableMode(null)},[editing]);
  const rich=useRef<RichNoteHandle>(null),body=useRef<HTMLDivElement>(null);
  const [ink,setInk]=useState('#708269'),[highlight,setHighlight]=useState('#e3c34d'),[fontSize,setFontSize]=useState('18'),[copied,setCopied]=useState(false),[bullet,setBullet]=useState('•'),[customBullet,setCustomBullet]=useState('✦'),[symbolText,setSymbolText]=useState('');
  useLayoutEffect(()=>{const content=body.current;if(content){const check=()=>setLong(content.scrollHeight>242);check();const observer=new ResizeObserver(check);observer.observe(content);return()=>observer.disconnect()}},[text,editing]);
@@ -54,7 +56,9 @@ export default function NoteText({text,onChange,date,images=[],draft=false,symbo
  {tool('numbered','編號清單',()=>rich.current?.list(true))}
  </>}
  {panel==='table'&&<>
- {tool('table','插入表格',()=>rich.current?.table(2,2))}
+ {tool('table','插入表格',()=>{setTableMode(null);rich.current?.table(2,2)})}
+ {tool('drawTable','手繪表格',()=>setTableMode(v=>v==='draw'?null:'draw'),{pressed:tableMode==='draw'})}{tool('eraseTable','表格橡皮擦',()=>setTableMode(v=>v==='erase'?null:'erase'),{pressed:tableMode==='erase'})}{tableMode&&tool('check','完成表格繪製',()=>setTableMode(null))}
+ {(['left','center','right'] as const).map(action=>tool(action,'儲存格'+({left:'靠左',center:'置中',right:'靠右'})[action],()=>rich.current?.paragraph(action)))}
  {(['row','column','removeRow','removeColumn','widths','heights'] as TableAction[]).map(action=>tool(action,({row:'增加橫列',column:'增加直欄',removeRow:'刪除橫列',removeColumn:'刪除直欄',widths:'平均欄寬',heights:'平均列高'} as Record<string,string>)[action],()=>rich.current?.tableEdit(action)))}
  
  </>}
@@ -62,7 +66,7 @@ export default function NoteText({text,onChange,date,images=[],draft=false,symbo
  <div className="noteSymbolShelf">{symbols.map((value,index)=><span className="noteSavedSymbol" key={value}><button type="button" aria-label={'插入符號 '+value} onMouseDown={e=>e.preventDefault()} onClick={()=>rich.current?.insert(value)}>{value}</button><button type="button" className="removeSavedSymbol" aria-label={'移除收藏符號 '+value} onClick={()=>onSymbolsChange?.(symbols.filter((_,i)=>i!==index))}>−</button></span>)}</div>
  {!symbols.length&&<small className="notePanelHelp">儲存後，點符號即可插入游標位置。</small>}
  </>}
- </div>{panel==='table'&&<small className="notePanelHelp">先點儲存格，再增減列欄；拖曳右邊／下邊調整寬高。</small>}</div>}
+ </div>{panel==='table'&&<small className="notePanelHelp">{tableMode==='draw'?'空白處上下拖曳建立外框；格內橫拉或直拉分割，線條自動拉直。完成後可編輯文字。':tableMode==='erase'?'點兩格之間的邊線即可合併，文字會保留。外框不會被擦除。':'先插入表格。手繪可分割儲存格；橡皮擦可移除共用邊線合併。拖曳右邊／下邊調整寬高。'}</small>}</div>}
  </div>
  <details className="noteSyntax"><summary>語法與操作說明</summary>
  <p>可直接反白文字後點圖示；再點一次可取消效果。電腦滑鼠停在圖示上可查看名稱。</p>
@@ -71,7 +75,7 @@ export default function NoteText({text,onChange,date,images=[],draft=false,symbo
  <p>連結：[文字](https://網址)；字色：[文字]&#123;color=#708269&#125;；底色：[文字]&#123;background=#e3c34d&#125;；字級：[文字]&#123;size=20&#125;。</p>
  <p>海苔編輯時可見，預覽時點文字切換顯示／隱藏。整行上移／下移會連同格式移動，反白多行可一起移動。</p>
  </details>
- <RichNoteEditor ref={rich} text={text} onChange={onChange}/>
+ <RichNoteEditor ref={rich} text={text} onChange={onChange} tableMode={tableMode}/>
  </>:<><div ref={body} className={'noteReading '+(expanded||!!findQuery?'expanded':'collapsed')}><NoteBody text={text} query={findQuery} activeMatch={activeMatch}/></div>{long&&!findQuery&&<button type="button" className="noteMore quiet" aria-expanded={expanded} onClick={()=>setExpanded(v=>!v)}>{expanded?'收起 ▴':'⋯ 查看更多'}</button>}</>}
  <div className="noteCharacterCount">共 {noteCharacterCount(text).toLocaleString('zh-TW')} 字</div>
  {!draft&&<div className="noteActionTools iconNoteActions" role="group" aria-label="筆記操作">

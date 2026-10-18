@@ -1,5 +1,6 @@
-export type NoteIconName='bold'|'italic'|'strike'|'spoiler'|'highlight'|'link'|'clear'|'format'|'color'|'list'|'table'|'quote'|'indent'|'outdent'|'left'|'right'|'center'|'up'|'down'|'check'|'edit'|'copy'|'plain'|'txt'|'image'|'row'|'column'|'removeRow'|'removeColumn'|'widths'|'heights'|'numbered'|'bullet'|'close'|'heading'|'subtitle'|'body'|'small'|'symbols';
+export type NoteIconName='drawTable'|'eraseTable'|'bold'|'italic'|'strike'|'spoiler'|'highlight'|'link'|'clear'|'format'|'color'|'list'|'table'|'quote'|'indent'|'outdent'|'left'|'right'|'center'|'up'|'down'|'check'|'edit'|'copy'|'plain'|'txt'|'image'|'row'|'column'|'removeRow'|'removeColumn'|'widths'|'heights'|'numbered'|'bullet'|'close'|'heading'|'subtitle'|'body'|'small'|'symbols';
 const paths:Partial<Record<NoteIconName,string>>={
+ drawTable:'M3 4h12M3 4v16h18v-8M3 12h7M11 4v5m1 7 8-12 3 2-8 12-4 1 1-3Z',eraseTable:'M3 4h18v16H3zM3 12h8m2-6 7 6-5 6h-4l-5-5 7-7Z',
  bold:'M7 4h6a4 4 0 0 1 0 8H7m0 0h7a4 4 0 0 1 0 8H7V4',
  italic:'M10 4h8M6 20h8M14 4 10 20',strike:'M17 6c-3-4-10-2-10 2 0 2 3 3 5 4m-5 6c3 3 10 2 10-2M3 12h18',
  spoiler:'m12 3 10 18H2L12 3Zm0 6v5m0 3v.1',

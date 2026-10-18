@@ -1,3 +1,4 @@
+import {editTableAxis} from './note-table';
 import {noteBlocks,blocksSyntax,type NoteLine} from './note-format';
 export type ParagraphAction='quote'|'indent'|'outdent'|'left'|'right'|'center';
 export function paragraphNote(text:string,start:number,end:number,action:ParagraphAction,index?:number){
@@ -10,10 +11,8 @@ export function paragraphNote(text:string,start:number,end:number,action:Paragra
 export type TableAction='row'|'column'|'removeRow'|'removeColumn'|'widths'|'heights';
 export function tableNote(text:string,index:number,action:TableAction,row=0,column=0){
  const blocks=noteBlocks(text),b=blocks[index];if(!b||b.type!=='table')return text;const cols=b.rows[0]?.length||1;
- if(action==='row'&&b.rows.length<50){b.rows.splice(row+1,0,Array.from({length:cols},()=>[]));b.heights?.splice(row+1,0,40)}
- if(action==='column'&&cols<20){b.rows.forEach(r=>r.splice(column+1,0,[]));delete b.widths}
- if(action==='removeRow'&&b.rows.length>1){b.rows.splice(row,1);b.heights?.splice(row,1)}
- if(action==='removeColumn'&&cols>1){b.rows.forEach(r=>r.splice(column,1));delete b.widths}
+ if(action==='row'||action==='column')editTableAxis(b,action==='row'?'row':'column',(action==='row'?row:column)+1);
+ if(action==='removeRow'||action==='removeColumn')editTableAxis(b,action==='removeRow'?'row':'column',action==='removeRow'?row:column,true);
  if(action==='widths')b.widths=Array(cols).fill(100/cols);
  if(action==='heights')b.heights=Array(b.rows.length).fill(40);
  return blocksSyntax(blocks);
