@@ -48,3 +48,7 @@ reset();controls.keyDown(key);listeners.get('window:keyup')({key:' ',code:'Space
  reset();controls.down(event(1,100,100,0,'pointerdown','pen'));controls.down(event(2,200,100,20));assert.equal(timers.size,0);controls.up(event(1,200,100,100,'pointerup','pen'));assert.equal(commands.length,0);
  console.log('PASS: real two-finger rotation, fast inward fit/reverse restore and slow-pinch distinction; sustained two-/three-touch undo/redo without extra release actions; three-finger clipboard swipe/rub clear/cancel, held shape constraint without pinch, and pen palm rejection.');
 }
+const {formatShortcut,shortcutLabel}=load(root+'/drawing-preferences.ts');
+assert.equal(formatShortcut('Mod+[','Ctrl'),'Ctrl+[');assert.equal(formatShortcut('Mod+Shift+z','⌘'),'⌘+Shift+Z');assert.equal(formatShortcut('Mod+[&#x20;','Ctrl'),'Ctrl+[');assert.equal(shortcutLabel('opacityDown'),'Ctrl+[');assert.equal(shortcutLabel('undo',{undo:'Mod+k'}),'Ctrl+K');
+reset();controls.keyDown({key:'Alt',altKey:true,shiftKey:false,target:{closest:()=>null},preventDefault:noop,stopPropagation:noop});render();assert.equal(controls.picking,true);listeners.get('window:keyup')({key:'Alt',altKey:false});render();assert.equal(controls.picking,false);
+console.log('PASS: portable shortcuts display Ctrl/⌘ and uppercase letters without encoded spaces; custom help labels match; Alt sampling disables the brush cursor and releases outside the editor.');

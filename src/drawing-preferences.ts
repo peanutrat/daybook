@@ -6,3 +6,12 @@ export function saveDrawingPreferences(p:DrawingPreferences){try{localStorage.se
 export function shortcutCombination(e:{key:string;ctrlKey?:boolean;metaKey?:boolean;shiftKey?:boolean;altKey?:boolean}){return [e.ctrlKey||e.metaKey?'Mod':'',e.altKey?'Alt':'',e.shiftKey?'Shift':'',e.key.toLowerCase()].filter(Boolean).join('+')}
 export function shortcutProblem(combo:string,command:CanvasCommand,shortcuts:DrawingPreferences['shortcuts']){const key=combo.split('+').at(-1);if(!key||['control','meta','alt','shift'].includes(key))return '請按下完整的按鍵組合。';if(/^(Mod\+)(?:Shift\+)?(?:l|t|w|r|n|p|q|tab)$/.test(combo)||['escape','tab',' '].includes(key))return '這組按鍵保留給瀏覽器或畫布基本操作。';if(Object.entries(shortcuts).some(([c,v])=>c!==command&&v===combo))return '這組快捷鍵已由其他功能使用。';return ''}
 export const shortcutActions:[CanvasCommand,string][]=[['opacityDown','降低筆刷不透明度'],['opacityUp','提高筆刷不透明度'],['clearLayer','清空目前圖層'],['clipboardMenu','剪下與貼上選單'],['copyAll','複製全部'],['cutPaste','剪下並貼上'],['brush','筆刷'],['eraser','橡皮擦'],['picker','吸色'],['bucket','油漆桶'],['move','移動／變形'],['wand','魔術棒'],['rect','方形選取'],['lasso','套索'],['undo','復原'],['redo','重做'],['copy','複製'],['cut','剪下'],['paste','貼上'],['newLayer','新增圖層'],['selectAll','全選'],['deselect','取消選取'],['export','匯出圖片'],['transform','旋轉／變形'],['adjustments','影像調整'],['flip','左右翻轉'],['merge','合併圖層'],['group','新增資料夾'],['layers','圖層選單'],['outline','圖層描邊']];
+
+// Keep portable Mod bindings in storage; display the current platform's key names.
+export function shortcutPlatform(){return typeof navigator!=='undefined'&&/Mac|iPhone|iPad|iPod/i.test(navigator.platform||navigator.userAgent)?'⌘':'Ctrl'}
+export function formatShortcut(combo:string,modifier=shortcutPlatform()){
+ const clean=combo.replace(/&(?:#x20|#32|nbsp);/gi,' ').trim();
+ return clean.split('+').map(k=>({Mod:modifier,control:'Ctrl',meta:'⌘',' ':'空白鍵',escape:'Esc',tab:'Tab'}[k]??(k.length===1?k.toUpperCase():k))).join('+');
+}
+export const defaultShortcuts:Partial<Record<CanvasCommand,string>>={opacityDown:'Mod+[',opacityUp:'Mod+]',brush:'b',eraser:'e',picker:'i',bucket:'g',move:'v',wand:'w',rect:'m',lasso:'l',undo:'Mod+z',redo:'Mod+Shift+z',copy:'Mod+c',cut:'Mod+x',paste:'Mod+v',newLayer:'Mod+Shift+n',selectAll:'Mod+a',deselect:'Mod+d',export:'Mod+s',fit:'Mod+0'};
+export function shortcutLabel(command:CanvasCommand,custom:DrawingPreferences['shortcuts']={}){return formatShortcut(custom[command]??defaultShortcuts[command]??'')}
