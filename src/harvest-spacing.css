@@ -1,0 +1,75 @@
+/* Shared heading geometry for both settlement sections, at every viewport. */
+.bookApp .harvestFolder .folderHeading,
+.bookApp .harvestFolder .folderWeekBrand {
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:flex-start;
+ height:auto;
+ min-height:0;
+ padding:0;
+ margin:0 0 12px;
+ text-align:center;
+ flex-shrink:0;
+}
+.bookApp .harvestFolder .folderHeading>div {
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ flex:none;
+ padding:0;
+}
+.bookApp .harvestFolder .folderHeading h3,
+.bookApp .harvestFolder .folderWeekBrand h4 {
+ order:0;
+ font:600 23px/1.4 Georgia,'PMingLiU',serif;
+ letter-spacing:2px;
+ color:#5f6349;
+ margin:0!important;
+}
+.bookApp .harvestFolder .folderHeading small,
+.bookApp .harvestFolder .folderWeekBrand>span {
+ order:1;
+ display:block;
+ font:9px/1.5 Georgia,serif;
+ letter-spacing:1.2px;
+ color:#a38959;
+ margin:4px 0 0;
+}
+.bookApp .harvestFolder .folderWater>.folderDateNav,
+.bookApp .harvestFolder .folderMushDate>.folderDateNav {
+ height:40px;
+ min-height:40px;
+ margin:0;
+ padding:0;
+}
+.bookApp .harvestFolder .folderWater>.folderDetails,
+.bookApp .harvestFolder .folderMushrooms>.folderDetails {
+ margin-top:12px;
+}
+.bookApp .harvestFolder .folderHarvestStats,
+.bookApp .harvestFolder .folderWaterStats {
+ grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.bookApp .harvestFolder .folderHarvestStats>div,
+.bookApp .harvestFolder .folderWaterStats>div {
+ gap:10px;
+}
+@container(min-width:800px) {
+ .bookApp .folderPeriod .folderWater,
+ .bookApp .folderPeriod .folderMushrooms {
+  min-height:0;
+  padding-top:20px;
+ }
+}
+@media(max-width:600px) {
+ .bookApp .harvestFolder .folderHeading h3,
+ .bookApp .harvestFolder .folderWeekBrand h4 {
+  font-size:21px;
+ }
+ .bookApp .harvestFolder .folderHeading small,
+ .bookApp .harvestFolder .folderWeekBrand>span {
+  font-size:8px;
+  letter-spacing:1px;
+ }
+}
