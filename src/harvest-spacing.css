@@ -1,3 +1,25 @@
+/* Tracking preferences affect presentation only; saved records are retained. */
+.bookApp .harvestFolder.folderNoWater{max-width:560px}
+.folderPanels{display:flex;flex-direction:column}
+.folderPanels>.folderWater{order:0}
+.folderPanels>.folderMushrooms{order:1}
+.mushroom-first .folderPanels>.folderMushrooms{order:0;border-top:0;margin-top:0;padding-top:0}
+.mushroom-first .folderPanels>.folderWater{order:1;border-top:3px dotted #c5ae77;margin-top:24px;padding-top:19px}
+.folderNoWater .folderPanels>.folderMushrooms{border:0;margin:0;padding:0}
+.folderNoWater .folderMushDate{display:block}
+.folderNoWater .folderMushDate .folderDateNav{display:flex}
+.bookApp .harvestFolder .folderExportMenu>summary{text-align:center;list-style:none;display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px}
+.folderExportMenu>summary::before{content:'▸';font-size:10px}
+.folderExportMenu[open]>summary::before{content:'▾'}
+.bookApp .harvestFolder .folderExport{justify-content:center}
+@container(min-width:800px){
+ .folderWithWater.water-first .folderPanels>.folderWater{grid-column:1;grid-row:1}
+ .folderWithWater.water-first .folderPanels>.folderMushrooms{grid-column:2;grid-row:1}
+ .folderWithWater.mushroom-first .folderPanels>.folderMushrooms{grid-column:1;grid-row:1}
+ .folderWithWater.mushroom-first .folderPanels>.folderWater{grid-column:2;grid-row:1}
+ .folderWithWater .folderPanels>.folderWater,.folderWithWater .folderPanels>.folderMushrooms{order:0;border:0;margin:0;padding:20px 23px 15px}
+ .folderWithWater.water-first .folderMushrooms::after{right:auto;left:0}
+}
 /* Shared heading geometry for both settlement sections, at every viewport. */
 .bookApp .harvestFolder .folderHeading,
 .bookApp .harvestFolder .folderWeekBrand {
