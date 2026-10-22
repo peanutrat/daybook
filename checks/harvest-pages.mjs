@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {pageCapacity,mushroomPages,journeyModel,journeyPages} from '../src/harvest-pages.ts';
+import {harvestReport} from '../public/mushrooms/harvest-report.js';
+import {MUSHROOMS} from '../public/mushrooms/assets/mushrooms.js';
+import {normalizeTrip} from '../src/water-trip.ts';
+import {waterPeriod} from '../src/water-review.ts';
+const day='2026-10-22',sessions=Array.from({length:137},(_,i)=>({id:'s'+i,name:'Task '+i,seconds:i*300,day})),batches=sessions.map((s,i)=>({id:s.id,day,count:i+1,counts:[{id:MUSHROOMS[i%30].id,count:i+1}]})),state={sessions,stump:{harvests:batches}},data={begin:day,end:day,title:day,sessions,batches,seconds:sessions.reduce((n,s)=>n+s.seconds,0),count:batches.reduce((n,b)=>n+b.count,0)},before=JSON.stringify(state),report=harvestReport(state,data,{period:'day',anchor:day,logo:'assets/receipt-day.png'});
+assert.equal(report.seconds,data.seconds);assert.equal(report.count,data.count);assert.equal(report.sessionsCount,137);
+for(const width of [320,390,760,1100]){const cap=pageCapacity(width,667),pages=mushroomPages(report,cap);assert.equal(pages[0].kind,'overview');assert.equal(pages.filter(p=>p.kind==='activities').flatMap(p=>p.items).length,137);assert.equal(pages.filter(p=>p.kind==='harvest').flatMap(p=>p.items).reduce((n,p)=>n+p.count,0),data.count);assert(pages.filter(p=>p.kind==='activities').every(p=>p.items.length<=cap.activities));assert.equal(mushroomPages({...report,groups:[],activities:[],count:0,sessionsCount:0},cap).length,1);assert.equal(cap.slots,width<760?1:2);}
+assert.equal(JSON.stringify(state),before,'projection and paging must not mutate stored records');
+const trip=normalizeTrip({version:1,settledDays:[],drinks:Array.from({length:251},(_,i)=>({id:'d'+i,day,at:day+'T12:00:00Z',ml:100})),ticketScenes:{[day]:3}}),saved=JSON.stringify(trip),stats=waterPeriod(trip,day,'month'),model=journeyModel(trip,stats);
+for(const width of [320,390,1100]){const cap=pageCapacity(width,844),pages=journeyPages(model,cap);assert.equal(pages.filter(p=>p.kind==='ticket').flatMap(p=>p.items).length,251);assert.equal(new Set(pages.filter(p=>p.kind==='ticket').flatMap(p=>p.items.map(d=>d.id))).size,251);assert.equal(pages.filter(p=>p.kind==='chart').flatMap(p=>p.items).length,31);assert.equal(pages[0].kind,'overview');assert.equal(pages.filter(p=>p.kind==='ticket').reduce((n,p)=>n+p.items.reduce((sum,d)=>sum+d.ml,0),0),25100);}
+assert.equal(stats.ml,25100);assert.equal(JSON.stringify(trip),saved);assert.equal(journeyPages(journeyModel(normalizeTrip(),waterPeriod(normalizeTrip(),day,'week')),pageCapacity(390,844)).length,1);
+console.log('PASS: shared projections preserve totals and stored JSON; zero/137 activities/30 mushroom types/251 drinks; adaptive single and double-page plans; all records appear once across pages; complete monthly chart.');

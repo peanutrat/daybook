@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {writeFile, mkdtemp, rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {exportWaterPeriod} from '../src/harvest-review-export.ts';
+import {normalizeTrip} from '../src/water-trip.ts';
+const texts=[],sizes=[],downloads=[],blobs=new Map();
+const oldTimeout=globalThis.setTimeout;
+globalThis.setTimeout=()=>0;
+URL.createObjectURL=blob=>{const key='blob:'+blobs.size;blobs.set(key,blob);return key;};
+globalThis.document={createElement(tag){if(tag==='a')return{click(){downloads.push({blob:blobs.get(this.href),name:this.download});}};if(tag==='canvas')return{width:0,height:0,getContext(){return{fillRect(){},strokeRect(){},fillText(text){texts.push(text);}};},toBlob(callback){sizes.push([this.width,this.height]);callback(new Blob(['test PNG payload']));}};throw Error(tag);}};
+const day='2026-10-22';
+const trip=normalizeTrip({version:1,settledDays:[],drinks:Array.from({length:251},(_,i)=>({id:'d'+i,day,at:day+'T12:00:00Z',ml:101+i}))});
+const saved=JSON.stringify(trip),result=await exportWaterPeriod(trip,day,'month');
+assert.equal(result.entries,251);assert.equal(result.files,2);assert.equal(downloads.length,1);assert(downloads[0].name.endsWith('.zip'));
+assert.equal(texts.filter(t=>/^\d{2}:\d{2}\s/.test(t)).length,251,'all entries must be drawn, including later reading pages');
+assert.equal(JSON.stringify(trip),saved);assert(sizes.every(([w,h])=>w===1200&&h<=7620));
+const dir=await mkdtemp(join(tmpdir(),'harvest-export-'));
+try{const zip=join(dir,'export.zip');await writeFile(zip,new Uint8Array(await downloads[0].blob.arrayBuffer()));const listing=execFileSync('unzip',['-t',zip],{encoding:'utf8'});assert(listing.includes('No errors detected'));}finally{await rm(dir,{recursive:true,force:true});}
+texts.length=0;downloads.length=0;
+const empty=await exportWaterPeriod(normalizeTrip(),day,'day');assert.equal(empty.entries,0);assert.equal(empty.files,1);assert(downloads[0].name.endsWith('.png'));assert(texts.includes('0 mL'));
+globalThis.setTimeout=oldTimeout;
+console.log('PASS: complete 251-entry export spans valid ZIP PNG entries, bounded canvas size, no data mutation; zero-record PNG remains available. Canvas text coverage tested with a drawing stub; real PNG rendering verified separately in browser.');
