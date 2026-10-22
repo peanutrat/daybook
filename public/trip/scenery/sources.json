@@ -1,0 +1,80 @@
+[
+  {
+    "id": "finland",
+    "source": "公路風景/ChatGPT 圖像 2026年10月19日 下午09_08_28-3.png",
+    "asset": "finland.webp",
+    "thumbnail": "finland-thumb.webp"
+  },
+  {
+    "id": "norway",
+    "source": "公路風景/挪威峽灣公路與拱橋晨景.png",
+    "asset": "norway.webp",
+    "thumbnail": "norway-thumb.webp"
+  },
+  {
+    "id": "germany",
+    "source": "公路風景/ChatGPT 圖像 2026年10月19日 下午09_08_29-4.png",
+    "asset": "germany.webp",
+    "thumbnail": "germany-thumb.webp"
+  },
+  {
+    "id": "italy",
+    "source": "公路風景/托斯卡納像素田園風光.png",
+    "asset": "italy.webp",
+    "thumbnail": "italy-thumb.webp"
+  },
+  {
+    "id": "japan",
+    "source": "公路風景/櫻花海灣與富士山景致.png",
+    "asset": "japan.webp",
+    "thumbnail": "japan-thumb.webp"
+  },
+  {
+    "id": "iceland",
+    "source": "公路風景/冰川瀑布下的冰島牧野.png",
+    "asset": "iceland.webp",
+    "thumbnail": "iceland-thumb.webp"
+  },
+  {
+    "id": "scotland",
+    "source": "公路風景/蘇格蘭高地湖畔像素風景.png",
+    "asset": "scotland.webp",
+    "thumbnail": "scotland-thumb.webp"
+  },
+  {
+    "id": "usa",
+    "source": "公路風景/ChatGPT 圖像 2026年10月19日 下午09_08_26-1.png",
+    "asset": "usa.webp",
+    "thumbnail": "usa-thumb.webp"
+  },
+  {
+    "id": "harvest",
+    "source": "公路風景/ChatGPT 圖像 2026年10月19日 下午09_08_27-2.png",
+    "asset": "harvest.webp",
+    "thumbnail": "harvest-thumb.webp"
+  },
+  {
+    "id": "australia",
+    "source": "公路風景/像素海岸公路與十二門徒巖柱.png",
+    "asset": "australia.webp",
+    "thumbnail": "australia-thumb.webp"
+  },
+  {
+    "id": "canada",
+    "source": "公路風景/像素藝術山湖公路全景.png",
+    "asset": "canada.webp",
+    "thumbnail": "canada-thumb.webp"
+  },
+  {
+    "id": "mediterranean",
+    "source": "公路風景/地中海海岸像素風光 _.png",
+    "asset": "mediterranean.webp",
+    "thumbnail": "mediterranean-thumb.webp"
+  },
+  {
+    "id": "coast",
+    "source": "公路風景/復古像素風海岸公路全景.png",
+    "asset": "coast.webp",
+    "thumbnail": "coast-thumb.webp"
+  }
+]

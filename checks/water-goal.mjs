@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {calculateWaterGoal,normalizeHydration,waterMultipliers} from '../src/water-goal.ts';
+import {normalizeTrip,activeWaterGoal,emptyTrip} from '../src/water-trip.ts';
+import {normalizeAvatar} from '../src/elf-avatar.ts';
+const base={weightKg:60,method:'weight',multiplier:30};
+assert.deepEqual(waterMultipliers.map(multiplier=>calculateWaterGoal({...base,multiplier})),[1800,2400,3000]);
+assert.equal(calculateWaterGoal({...base,weightKg:72.5}),2175);
+assert.equal(calculateWaterGoal({...base,method:'height-weight',heightCm:170}),2300);
+assert.equal(calculateWaterGoal({...base,method:'height-weight',heightCm:170,multiplier:50}),2300,'Height formula ignores exercise multiplier');
+for(const bad of [undefined,{}, {...base,weightKg:0},{...base,weightKg:Infinity},{...base,method:'other'},{...base,multiplier:35},{...base,method:'height-weight'},{...base,method:'height-weight',heightCm:0}])assert.equal(calculateWaterGoal(bad),undefined);
+assert.equal(activeWaterGoal(emptyTrip()),undefined);assert.equal(activeWaterGoal({...emptyTrip(),goalMl:2000,mode:'goal'}),undefined);
+assert.deepEqual(normalizeHydration({weightKg:60,age:30,activity:'moderately'}),base,'Old saved weight migrates to new weight formula');
+const saved={...emptyTrip(),hydration:base,mode:'goal',goalMl:1800,avatar:normalizeAvatar({hair:'bob',skin:'#fff3e7',hairColor:'#51342f',blush:'rosy',outfit:'overalls',accessory:'glasses'})};
+assert.equal(activeWaterGoal(saved),1800);assert.equal(activeWaterGoal({...saved,mode:'free'}),undefined);assert.deepEqual(normalizeTrip(JSON.parse(JSON.stringify(saved))),saved);
+assert.equal(normalizeTrip({...saved,hydration:{...base,weightKg:-1}}).hydration,undefined);
+console.log('PASS: 30/40/50 mL weight formulas, height + weight formula, rounding, input validation, legacy conversion and backup round trip.');

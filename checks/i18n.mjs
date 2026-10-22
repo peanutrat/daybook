@@ -28,6 +28,7 @@ const assigned=[],cache=new Map();let states=[],cursor=0,effects=[];
 const react={...require("react"),useState(v){const i=cursor++;if(!(i in states))states[i]=typeof v==='function'?v():v;return[states[i],v=>states[i]=typeof v==='function'?v(states[i]):v]},useRef(v){const i=cursor++;return states[i]??(states[i]={current:v})},useEffect(fn,deps){const i=cursor++,old=states[i];if(!old||deps?.some((v,j)=>v!==old[j])){effects.push(fn);states[i]=deps}}};
 const noop=()=>{},location={search:'?lang=en',href:'https://example.test/daybook/?lang=en',origin:'https://example.test',assign:url=>assigned.push(url)},window={location,localStorage:storage,matchMedia:()=>({matches:false,addEventListener:noop,removeEventListener:noop}),addEventListener:noop,removeEventListener:noop};
 function load(file){
+ if(file.endsWith('.css'))return {};
  if(file.endsWith('.json'))return JSON.parse(fs.readFileSync(file,'utf8'));
  if(cache.has(file))return cache.get(file).exports;
  const module={exports:{}};cache.set(file,module);
@@ -42,6 +43,9 @@ const Book=load(root+'/Book.tsx').default;
 function render(){cursor=0;let tree=Book();const fns=effects.splice(0);for(const f of fns)f();cursor=0;tree=Book();return tree;}
 let tree=render();checkEnglish(tree,'Calendar');
 const select=nodes(tree).find(n=>n.type==='select'&&n.props['aria-label']==='Interface language');assert(select);assert.equal(select.props.value,'en');
+const waterEntry=nodes(tree).find(n=>n.props?.className==='timerOpen quiet calendarWaterOpen');assert(waterEntry,'Water entry beside mushroom timer');waterEntry.props.onClick();tree=render();checkEnglish(tree,'Water log');
+const waterComponent=nodes(tree).find(n=>typeof n.type==='function'&&n.type.name==='WaterTripDemo');assert(waterComponent);waterComponent.props.onChange({version:1,drinks:[],settledDays:[],cupPresets:[330,600]});tree=render();nodes(tree).find(n=>n.props?.className==='timerOpen quiet calendarWaterOpen').props.onClick();tree=render();assert.equal(nodes(tree).find(n=>n.props?.id==='daybook-water-panel').props.hidden,true);const quick=nodes(tree).find(n=>n.props?.['aria-label']==='Log water 600 mL');assert(quick,'Configured amounts appear when collapsed');quick.props.onClick();quick.props.onClick();tree=render();const logged=nodes(tree).find(n=>typeof n.type==='function'&&n.type.name==='WaterTripDemo').props.value;assert.equal(logged.drinks.length,1,'Rapid duplicate clicks are guarded');assert.equal(logged.drinks[0].ml,600);assert.equal(nodes(tree).find(n=>n.props?.id==='daybook-water-panel').props.hidden,true,'Quick recording keeps panel collapsed');
+
 for(const tab of ['▤ Notes','✎ Drawing','▤ Harvest review']){nodes(tree).find(n=>n.type==='button'&&n.props.children===tab).props.onClick();tree=render();checkEnglish(tree,tab);}
 // Notes use a stable Inbox identifier, with an English display label.
 nodes(tree).find(n=>n.type==='button'&&n.props.children==='▤ Notes').props.onClick();tree=render();assert(visibleStrings(tree).includes('Inbox'));
@@ -60,3 +64,7 @@ const settings=load(root+'/workspace-config.ts').defaultConfiguration();
 states=[];cursor=0;effects=[];
 checkEnglish(load(root+'/CanvasSettings.tsx').default({value:{...settings,workspaces:[]},onChange:noop,onClose:noop}),'Drawing settings');
 console.log(`PASS: ${count} catalog lookups; language detection/persistence; English calendar, notes, gallery, review, drawing settings/help and timer HTML; authored content preserved.`);
+const TicketReview=load(root+'/WaterTicketReview.tsx').default;
+states=[];cursor=0;effects=[];
+const waterTickets=TicketReview({value:{version:1,settledDays:[],drinks:[{id:'a',day:'2026-10-21',at:'2026-10-21T10:00:00Z',ml:330},{id:'b',day:'2026-10-21',at:'2026-10-21T11:00:00Z',ml:600},{id:'c',day:'2026-10-22',at:'2026-10-22T10:00:00Z',ml:250}]}});
+checkEnglish(waterTickets,'Water ticket review');const summaries=nodes(waterTickets).filter(n=>n.props?.className==='waterTicketReading');assert.equal(summaries.length,2);assert(visibleStrings(summaries[0]).includes('250'));assert(visibleStrings(summaries[1]).includes('930'));assert(!visibleStrings(summaries).some(s=>['Finland','Norway','Germany','Italy'].includes(s)),'Ticket labels contain amounts, not locations');assert.equal(nodes(waterTickets).filter(n=>n.props?.className==='waterTicketEntries').length,2);console.log('PASS: daily water tickets aggregate amounts, newest first, with entry details and no location labels.');

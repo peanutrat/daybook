@@ -1,0 +1,177 @@
+/* One original cockpit plate, with overlays registered to its 2048x368 canvas. */
+.tripIntegratedDial{display:none}
+#water-trip-cockpit .elfCompactLicense{background-image:url('/trip/license-rounded.webp');background-size:100% 100%;border-radius:14px;overflow:hidden;aspect-ratio:2048/686}
+#water-trip-cockpit .elfLicenseFace{left:5%;top:15%;width:22.5%;height:68%;overflow:visible}
+#water-trip-cockpit .elfLicenseFace .elfAvatar{width:100%;height:100%;object-fit:contain}
+#water-trip-cockpit .elfLicenseOpen>b{left:34%;top:37%;width:50%;max-width:50%;height:18%;font-size:clamp(10px,1.15cqw,18px);line-height:1;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden;text-overflow:ellipsis}
+#water-trip-cockpit .elfModeSwitch{left:34%;top:62%;width:50%;height:20%;gap:0}
+#water-trip-cockpit .elfModeSwitch button{font-size:clamp(7px,.95cqw,14px);color:#d7b46d}
+#water-trip-cockpit .elfModeSwitch button[aria-pressed=true]{background:#b18c483b;color:#f3d497}
+@container(min-width:768px){
+ #water-trip-cockpit:not(.isCompact) .elfDashboard{display:block;height:17.96875cqw;min-height:0;aspect-ratio:2048/368;padding:0;border:0;border-radius:0;box-shadow:none;background:url('/trip/dashboard.webp') center/100% 100% no-repeat;overflow:hidden}
+ #water-trip-cockpit:not(.isCompact) .tripIntegratedDial{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;image-rendering:pixelated}
+ #water-trip-cockpit:not(.isCompact) .elfGauge{position:absolute;left:0;top:0;width:28%;height:100%;min-height:0;border:0;padding:0;background:none;box-shadow:none;pointer-events:none;opacity:0}
+ #water-trip-cockpit:not(.isCompact) .elfRoute{position:absolute;left:30.7%;top:23%;width:35.8%;height:63%;min-height:0;margin:0;padding:0;display:block;background:transparent;border:0;border-radius:0;box-shadow:none;z-index:1}
+ #water-trip-cockpit:not(.isCompact) .tripRoutePostcard{display:none}
+ #water-trip-cockpit:not(.isCompact) .elfRouteTitle{position:absolute;left:0;top:0;font-size:clamp(7px,1cqw,15px);height:19%;align-items:center}
+ #water-trip-cockpit:not(.isCompact) .elfRouteTitle b{display:none}
+ #water-trip-cockpit:not(.isCompact) .elfRouteTitle .tripStampIcon{width:3cqw;height:2.4cqw}
+ #water-trip-cockpit:not(.isCompact) .elfMileage{position:absolute;left:0;top:31%;height:35%;width:100%;display:flex;align-items:baseline;justify-content:center;gap:.5cqw}
+ #water-trip-cockpit:not(.isCompact) .elfMileage strong{font-size:clamp(24px,4.4cqw,68px);font-style:italic}
+ #water-trip-cockpit:not(.isCompact) .elfMileage>span{font-size:clamp(13px,2.8cqw,43px);font-style:normal}
+ #water-trip-cockpit:not(.isCompact) .elfGoalTrack{position:absolute;left:0;bottom:0;width:100%;height:2cqw;min-height:0;margin:0;padding:.25cqw;border-width:.18cqw;border-radius:.4cqw}
+ #water-trip-cockpit:not(.isCompact) .tripProgressCells{gap:.25cqw}
+ #water-trip-cockpit:not(.isCompact) .elfRouteMarker{width:2.8cqw;bottom:calc(100% + .25cqw)}
+ #water-trip-cockpit:not(.isCompact) .elfDrink{position:absolute;left:70.4%;top:23%;width:23%;height:62%;min-height:0;padding:2.5cqw .5cqw 0;display:flex;gap:5%;background:transparent;border:0;border-radius:0;box-shadow:none;z-index:1}
+ #water-trip-cockpit:not(.isCompact) .elfDrinkTitle{top:0;left:0;right:0;font-size:clamp(7px,1cqw,15px);justify-content:flex-start}
+ #water-trip-cockpit:not(.isCompact) .elfDrinkTitle>span:last-child{display:none}
+ #water-trip-cockpit:not(.isCompact) .elfCup{flex-basis:35%;min-height:0}
+ #water-trip-cockpit:not(.isCompact) .elfCupLift>img{width:175%;height:190%;left:-38%;bottom:-42%}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices{justify-content:center;gap:.5cqw}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices select{min-height:0;height:2.3cqw;font-size:clamp(8px,.95cqw,14px);padding:.2cqw;background:linear-gradient(#cf9859,#b8783d);color:#352818;border:1px solid #edc78b}
+ #water-trip-cockpit:not(.isCompact) .elfDrink .elfCupChoices button.tripDrinkNow{min-height:0;height:2.5cqw;padding:.2cqw;font-size:clamp(8px,1.05cqw,16px);background:linear-gradient(#d49b58,#ba773c);border:1px solid #edc78b;color:#352818;order:2}
+ #water-trip-cockpit:not(.isCompact) .elfDrink .elfCupChoices button.tripEditCups{min-height:0;height:1.5cqw;font-size:clamp(6px,.75cqw,11px);color:#d7bd8a;order:1}
+ #water-trip-cockpit:not(.isCompact) .tripCockpitNav{display:none}
+}
+@container(max-width:767px){
+ #water-trip-cockpit .elfCompactLicense{border-radius:8px}
+ #water-trip-cockpit .elfLicenseOpen>b{font-size:clamp(9px,2.3cqw,15px)}
+ #water-trip-cockpit .elfModeSwitch button{font-size:clamp(6px,1.65cqw,10px)}
+}
+@container(min-width:768px){#water-trip-cockpit:not(.isCompact) .elfCupLift>img{width:155%;height:150%;left:-27%;bottom:-20%}}
+
+/* October layout: calm dial, central date, two presets plus the cup menu. */
+#water-trip-cockpit .elfLicenseFace{left:6%;top:12%}
+.tripPanelClock{display:flex;flex-direction:column;align-items:flex-end;color:#d7bd8a;font-size:12px;margin-left:auto}
+.tripPanelClock span{font-size:.8em;opacity:.8}
+.tripPresetChoice,.tripMoreCups{min-height:40px;border:1px solid #d4b780;border-radius:4px;background:linear-gradient(#bd985f,#8c643c);color:#f8e6bf}
+.tripPresetChoice[aria-pressed=true]{outline:2px solid #f0d39b;outline-offset:1px}
+.elfSyncHair{min-height:40px;margin:10px 0;padding:8px 16px}
+@container(min-width:768px){
+ #water-trip-cockpit:not(.isCompact) .tripPanelClock{position:absolute;right:0;top:0;font-size:1cqw;line-height:1.5;z-index:2}
+ #water-trip-cockpit:not(.isCompact) .elfRouteTitle .tripStampIcon{display:none}
+ #water-trip-cockpit:not(.isCompact) .elfMileage{top:32%}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices button{min-height:0;height:2.3cqw;padding:.2cqw;font-size:clamp(9px,1cqw,16px)}
+ #water-trip-cockpit:not(.isCompact) .elfDrinkTitle{left:44%}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices .tripMoreCups{height:1.9cqw;background:#59412b}
+}
+
+#water-trip-cockpit .tripDialValue{font-size:64px;letter-spacing:1px}
+#water-trip-cockpit .tripDialUnit{font-size:26px}
+/* The supplied license template provides the full printed card. */
+.tripDemo .elfLicenseCard{position:relative;aspect-ratio:1635/962;background:transparent url('/trip/license-editor-v2.webp') center/100% 100% no-repeat;border:0;border-radius:16px;box-shadow:none;overflow:visible}
+.tripDemo .elfLicenseCard>header,.tripDemo .elfLicenseCard>footer,.tripDemo .elfLicenseStamp{display:none}
+.tripDemo .elfLicenseCardBody{display:block;padding:0}
+.tripDemo .elfLicensePhoto{position:absolute;left:4.3%;top:25%;width:24%;height:51%;padding:0;border:0;background:none;display:flex;align-items:flex-end;justify-content:center}
+.tripDemo .elfLicensePhoto .elfAvatar{height:auto;width:100%;max-height:100%;filter:drop-shadow(2px 0 #fff) drop-shadow(-2px 0 #fff) drop-shadow(0 2px #fff) drop-shadow(0 -2px #fff)}
+.tripDemo .elfLicenseIdentity label{position:absolute;left:37.6%;top:26%;width:37%;height:5.6%;font-size:0;display:block}
+.tripDemo .elfLicenseIdentity input{height:100%;min-height:0;padding:0 7px;border:0;background:transparent;text-align:center;font-size:clamp(12px,1.8vw,22px)}
+.tripDemo .elfLicenseCard .elfHydrationEditor{position:absolute;left:30.2%;top:32.3%;width:44.5%;height:44%;padding:9px;box-sizing:border-box;border:1px solid #cdb88e;background:repeating-linear-gradient(110deg,#76502d05 0 1px,transparent 1px 4px),#e9d9b9;color:#403728}
+.tripDemo .elfLicenseCard .elfHydrationEditor h3{font-size:12px;max-width:51%;margin:0 0 12px;min-height:27px;display:flex;align-items:center}
+.tripDemo .elfLicenseCard .elfHydrationEditor>p:first-of-type{display:none}
+.tripDemo .elfLicenseCard .elfCalculationActions{position:absolute;top:7px;right:7px;gap:5px;max-width:46%;flex-wrap:nowrap}
+.tripDemo .elfLicenseCard .elfCalculationActions button{min-height:27px;padding:3px 5px;font-size:9px;white-space:normal}
+.tripDemo .elfLicenseCard .elfFormulaLabel,.tripDemo .elfLicenseCard .elfHydrationInputs label{font-size:10px;gap:4px}
+.tripDemo .elfLicenseCard .elfFormulaLabel select,.tripDemo .elfLicenseCard .elfHydrationInputs input,.tripDemo .elfLicenseCard .elfHydrationInputs select{height:30px;min-height:0;padding:4px 6px;font-size:12px}
+.tripDemo .elfLicenseCard .elfHydrationInputs{grid-template-columns:1fr 1fr;gap:7px;margin:8px 0 5px}
+.tripDemo .elfLicenseCard .elfFormulaPreview{font-size:9px;margin:4px 0}
+.tripDemo .elfLicenseCard .elfCalculated{padding:6px;margin-top:5px;font-size:10px;min-height:0}
+.tripDemo .elfLicenseCard .elfCalculated b{font-size:17px}
+.tripDemo .elfLicenseCard .elfHealthNote{font-size:8px;margin:4px 0 0;line-height:1.35}
+.tripRouteEmblem{width:1.4em;height:1.1em;margin-right:.5em;vertical-align:-.12em;color:#c3ad7d}
+#water-trip-cockpit .elfRouteTitle,#water-trip-cockpit .tripPanelClock,#water-trip-cockpit .elfDrinkTitle{font-family:Georgia,'Times New Roman',serif;letter-spacing:.08em;font-weight:700}
+#water-trip-cockpit .elfCupChoices{min-width:0;box-sizing:border-box}
+@container(min-width:768px){
+ #water-trip-cockpit:not(.isCompact) .elfRouteTitle{top:8%;height:16%;font-size:clamp(9px,1.15cqw,18px);width:100%;border-bottom:1px solid #b9a87a77;padding-bottom:.4cqw}
+ #water-trip-cockpit:not(.isCompact) .tripPanelClock{top:7%;font-size:1.1cqw;letter-spacing:.04em;line-height:1.3}
+ #water-trip-cockpit:not(.isCompact) .elfRouteTitle>span{display:flex;align-items:center}
+ #water-trip-cockpit:not(.isCompact) .elfMileage{top:37%}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices{flex:0 1 54%;width:54%;max-width:54%;margin-right:4%;gap:.45cqw}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices button{width:100%;box-sizing:border-box;font-size:clamp(8px,.95cqw,14px);height:2.05cqw;padding:.1cqw .3cqw;white-space:nowrap}
+ #water-trip-cockpit:not(.isCompact) .elfCupChoices .tripMoreCups{height:1.85cqw}
+}
+@media(max-width:740px){
+ .tripDemo .elfLicenseCard{aspect-ratio:auto;padding-top:59%}
+ .tripDemo .elfLicensePhoto{top:15%;height:24%;width:24%}
+ .tripDemo .elfLicenseIdentity label{top:15%;height:4%}
+ .tripDemo .elfLicenseCard .elfHydrationEditor{position:relative;left:auto;top:auto;width:100%;height:auto;padding:14px;background:#e9d9b9;border-radius:8px}
+ .tripDemo .elfLicenseCard .elfHydrationEditor h3{max-width:none;margin-bottom:8px}
+ .tripDemo .elfLicenseCard .elfCalculationActions{position:static;max-width:none;flex-direction:row;flex-wrap:wrap;margin-bottom:10px}
+ .tripDemo .elfLicenseCard .elfCalculationActions button{min-height:40px;font-size:12px}
+ .tripDemo .elfLicenseCard .elfFormulaLabel select,.tripDemo .elfLicenseCard .elfHydrationInputs input,.tripDemo .elfLicenseCard .elfHydrationInputs select{height:40px}
+ .tripDemo .elfLicenseCard{background-position:top;background-size:100% auto}
+ .tripDemo .elfLicenseCard .elfHealthNote{font-size:10px}
+}
+.tripDemo .elfLicenseCard .elfHydrationEditor{height:46%}
+@media(max-width:740px){.tripDemo .elfLicenseCard .elfHydrationEditor{height:auto}}
+@container(min-width:768px){#water-trip-cockpit:not(.isCompact) .elfRouteTitle{height:24%}}
+/* Rest the marker wheels on the gold rail; keep cup feedback subtle. */
+#water-trip-cockpit .elfRouteMarker{bottom:calc(100% - 1px)}
+#water-trip-cockpit .elfCup>.elfCupLift{--cup-lift:clamp(8px,1.2cqw,18px)}
+@container(min-width:768px){
+ #water-trip-cockpit:not(.isCompact) .elfRouteMarker{bottom:calc(100% - 1px)}
+ #water-trip-cockpit:not(.isCompact) .elfDrinkTitle{top:8%}
+}
+@container(max-width:767px){#water-trip-cockpit .elfDrinkTitle{top:16px}}
+/* Calendar widget entry and the clean, continuous road/cockpit join. */
+.calendarWidgetControls{display:flex;gap:12px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.calendarWaterOpen{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+#water-trip-cockpit .tripLandscape{inset:0 -10%;background-size:cover}
+#water-trip-cockpit .tripWindow{box-shadow:none;border:0}
+#water-trip-cockpit .elfCompactLicense{left:0;right:auto;top:0;border-radius:0 0 12px 0;margin:0}
+@container(min-width:768px){#water-trip-cockpit:not(.isCompact) .elfDashboardViewport{margin-top:-4cqw}}
+.tripVisuallyHidden{position:absolute!important;width:1px;height:1px;padding:0!important;margin:-1px!important;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.tripDemo .elfLicenseCard{background-image:url('/trip/license-editor-v2.webp')}
+.tripDemo .elfEditorForm,.tripDemo .elfEditorForm button,.tripDemo .elfEditorForm input,.tripDemo .elfEditorForm select{font-family:Georgia,'Times New Roman','Noto Serif TC','PMingLiU',serif}
+.tripDemo .elfEditorForm h3,.tripDemo .elfEditorForm legend,.tripDemo .elfEditorForm label,.tripDemo .elfAppearanceDetails>summary,.tripDemo .elfCustomizerTabs button{color:#263e32;font-weight:700;font-family:Georgia,'Times New Roman','Noto Serif TC','PMingLiU',serif;letter-spacing:.04em}
+.tripDemo .elfLicenseCard .elfHydrationEditor{background:transparent;border:0}
+.tripDemo .elfLicenseIdentity label{left:36.6%;top:24.7%;width:37.2%}
+@media(max-width:740px){.calendarWidgetControls{gap:6px}.calendarWaterOpen{font-size:12px}.tripDemo .elfLicenseCard .elfHydrationEditor{background:#e9d9b9}.tripDemo .elfLicenseIdentity label{top:15%}}
+@container(min-width:768px){#water-trip-cockpit:not(.isCompact) .elfCar{bottom:.6cqw}}
+@container(min-width:768px){#water-trip-cockpit:not(.isCompact) .elfCar{bottom:1.5cqw}}
+/* Water and mushroom widgets share the same calendar header controls. */
+.bookApp .calendarWaterOpen{padding:6px;font-size:11px;gap:6px}
+.calendarWaterOpen>span{display:inline-flex;align-items:center;gap:4px}
+.calendarWaterOpen svg{width:12px;height:12px;flex:none}
+.calendarWaterControl .waterQuickAmount{color:var(--accent);background:var(--soft);border-radius:7px}
+.calendarLayout>.calendarWaterPanel{grid-column:1;grid-row:2;margin:0;padding:0 15px 12px;border-radius:0;border-top:0;border-bottom:0;min-width:0;width:100%;box-shadow:none;background:var(--paper)}
+.calendarWaterPanel[hidden]{display:none!important}
+.calendarWaterPanel .tripDemo{width:100%;max-width:none;padding:8px 0 0}
+.calendarWaterPanel .tripRetroTitle{display:none}
+.calendarLayout>.mushroomSection{grid-row:3}
+.calendarLayout>.workspace>.calendar{grid-row:4}
+.calendarLayout>.workspace>aside{grid-row:1/span 4}
+.mobileLayout .calendarLayout>.workspace>.calendar{grid-row:4}
+.mobileLayout .calendarLayout>.workspace>aside{grid-row:5}
+.mobileLayout .calendarWaterPanel{padding:0 10px 10px}
+@media(max-width:740px){.calendarLayout>.workspace>.calendar{grid-row:4}.calendarLayout>.workspace>aside{grid-row:5}.calendarWaterPanel{padding:0 10px 10px}}
+.calendarWaterOpen svg{width:10px;height:10px;stroke-width:1.5}
+.waterTicketReview{margin-top:14px}
+.waterTicketReview>h2{font:700 18px Georgia,'PMingLiU',serif;color:var(--accent)}
+.waterTicketGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
+.waterReviewTicket{overflow:hidden;border:1px solid #b29b70;border-radius:8px;background:repeating-linear-gradient(110deg,#7c593306 0 1px,transparent 1px 4px),#ead9b5;color:#51472f;align-self:start;box-shadow:0 3px 8px #35271316}
+.waterReviewTicket>summary{display:block;list-style:none;cursor:pointer}
+.waterReviewTicket>summary::-webkit-details-marker{display:none}
+.waterTicketScenery{height:150px;background-position:center;background-size:cover;padding:16px;color:#fff0d0;font:10px monospace;letter-spacing:2px;text-shadow:1px 1px 3px #000}
+.waterTicketReading{padding:16px;display:flex;flex-direction:column;gap:7px}
+.waterTicketReading time{font:11px monospace;opacity:.75}.waterTicketReading small{font-size:11px}.waterTicketReading strong{font:700 30px Georgia,serif}.waterTicketReading em{font:12px monospace}.waterTicketReading>span{font-size:11px;opacity:.7}
+.waterTicketEntries{padding:0 16px}.waterTicketEntries>div{display:flex;justify-content:space-between;padding:9px 0;border-top:1px dashed #b9a47c;font-size:12px}.waterReviewTicket footer{padding:12px 16px;font:10px monospace;border-top:1px dashed #b9a47c;opacity:.65}
+.tripDemo .elfLicenseIdentity input{font-size:clamp(20px,2.8vw,34px)!important;padding-right:30px!important}
+.tripDemo .elfLicenseIdentity input[readonly]{cursor:default;outline:none;box-shadow:none}
+.tripDemo .elfNameEdit{position:absolute;left:71%;top:25%;width:3%;min-width:23px;height:5%;min-height:24px;padding:0;border:0;background:none;color:#294635;font-size:22px}
+.tripDemo .elfNameEdit[aria-pressed=true]{background:#d2bc8b77;border-radius:4px}
+.tripDemo .elfNameEdit{display:grid;place-items:center;color:#294635;cursor:pointer}
+.tripDemo .elfNameQuill{display:block;width:20px;height:20px;flex:none}
+.tripDemo .elfNameEdit:hover{color:#714d2b;background:#d2bc8b40;border-radius:4px}
+.tripDemo .elfNameEdit:focus-visible{outline:2px solid #294635;outline-offset:2px;border-radius:4px}
+.calendarWaterOpen>span{gap:6px!important}
+.calendarWaterOpen svg{width:10px;height:10px}
+.waterReviewHeading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.waterReviewHeading h2{font:700 18px Georgia,'PMingLiU',serif;color:var(--accent)}
+.waterReviewHeading>div{display:flex;gap:6px}.waterReviewHeading select,.waterReviewHeading input{padding:7px;font-size:12px}
+.waterPeriodSummary{padding:18px;margin:12px 0 18px;border:1px solid #d2c59b;border-radius:8px;background:#f1e8c8;color:#526442;display:flex;flex-direction:column;gap:9px}
+.waterPeriodSummary>span{font-size:12px}.waterPeriodSummary>strong{font:700 32px Georgia,serif}.waterPeriodSummary strong small{font-size:14px}
+.waterPeriodChart{display:grid;gap:4px;align-items:end;margin-top:12px}.waterPeriodChart>div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0;height:105px;gap:6px}.waterPeriodChart b{display:block;width:70%;background:#a8b779;border-radius:3px 3px 0 0}.waterPeriodChart small{font-size:9px}
+.waterTicketTools{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 12px;align-items:end}.waterTicketTools label{display:flex;flex-direction:column;gap:5px;font-size:11px;flex:1;min-width:120px}.waterTicketTools select{width:100%;font-size:12px;padding:6px}.waterTicketTools button{padding:7px;font-size:11px}
+.waterReviewTicket>details>summary{cursor:pointer;padding:12px 16px;border-top:1px dashed #b9a47c;font-size:12px}
+@media(max-width:740px){.tripDemo .elfNameEdit{top:15%;left:71%;height:4%;font-size:18px}.tripDemo .elfLicenseIdentity input{font-size:20px}.waterReviewHeading input{max-width:145px}}

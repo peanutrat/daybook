@@ -1,0 +1,136 @@
+/* Independent panels share a grid instead of offsets over a single image. */
+#water-trip-cockpit{--brass:#a68b59;--paper:#e6d1a1;--panel:#202922;background:#262720;border:3px solid #57452f;border-radius:10px}
+#water-trip-cockpit .tripWindow{aspect-ratio:3.1;min-height:260px}
+#water-trip-cockpit .elfCar{width:21%;left:39%;bottom:-1.4cqw}
+#water-trip-cockpit .elfCompactLicense{width:22%;right:1.5%;top:4%}
+#water-trip-cockpit .retroInfo{width:24%;left:1.5%;top:4%;box-sizing:border-box}
+#water-trip-cockpit .tripLayoutToggle{position:absolute;right:1.5%;bottom:12px;z-index:6;min-height:32px;background:#202922dc;border:1px solid var(--brass);color:var(--paper);border-radius:4px;padding:5px 10px;font-size:11px}
+.tripDailyNote{position:absolute;left:2%;top:42%;width:19%;max-width:230px;transform:rotate(-2deg);background:#eadbbb;color:#50452e;box-shadow:3px 4px 0 #191c2455;padding:12px;border:1px solid #b49d6e;font-size:clamp(9px,.9cqw,13px);display:flex;flex-direction:column;gap:8px;z-index:2}
+.tripDailyNote b{border-bottom:1px solid #b69d72;padding-bottom:6px}
+#water-trip-cockpit .elfDashboardViewport{height:auto;margin:0}
+#water-trip-cockpit .elfDashboard{display:grid;grid-template-columns:minmax(160px,.9fr) minmax(270px,1.8fr) minmax(210px,1fr) 72px;gap:12px;aspect-ratio:auto;height:auto;transform:none;background:linear-gradient(#544331,#272a24);padding:12px;box-sizing:border-box;width:100%;align-items:stretch;overflow:hidden}
+#water-trip-cockpit .elfDashboard:after{display:none}
+#water-trip-cockpit .elfGauge,#water-trip-cockpit .elfRoute,#water-trip-cockpit .elfDrink{position:relative;inset:auto;width:auto;height:auto;min-height:176px;min-width:0;box-sizing:border-box;aspect-ratio:auto;margin:0;border:3px solid #8b7553;border-radius:12px;box-shadow:0 0 0 2px #171b16,inset 0 0 0 2px #3c4231;background:radial-gradient(ellipse at top,#303a2b,#17201c);padding:14px;color:var(--paper)}
+#water-trip-cockpit .elfGauge{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;pointer-events:none;padding-bottom:20px;overflow:hidden}
+#water-trip-cockpit .tripDial{position:absolute;width:100%;height:100%;inset:0;object-fit:contain}
+#water-trip-cockpit .elfGauge>strong{z-index:1;font:bold clamp(22px,2.9cqw,44px)/1 monospace;letter-spacing:0;background:none;padding:0;position:relative;margin-top:78px}
+#water-trip-cockpit .tripGaugeTarget{z-index:1;position:relative;margin-top:7px;color:#d5c399;font:clamp(10px,1.1cqw,16px)/1.2 monospace}
+#water-trip-cockpit .elfRoute{padding:15px 130px 18px 18px;display:flex;flex-direction:column;justify-content:space-between;gap:25px}
+#water-trip-cockpit .elfRouteTitle{position:static;display:flex;gap:9px;font:11px/1.5 monospace;letter-spacing:.05em;color:var(--paper)}
+#water-trip-cockpit .elfRouteTitle svg{width:28px;height:28px;padding:3px;box-sizing:border-box}
+#water-trip-cockpit .elfRouteTitle b{display:block;font:12px/1.6 system-ui,sans-serif;letter-spacing:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#water-trip-cockpit .elfGoalTrack{position:relative;inset:auto;order:1;width:100%;height:13px;min-height:13px;margin:0;border:1px solid #89936d;border-radius:4px;background:#34442e;box-shadow:inset 0 0 3px #111}
+#water-trip-cockpit .elfGoalTrack>i{background:repeating-linear-gradient(90deg,#a4b487 0 21px,#465738 21px 24px);height:100%}
+#water-trip-cockpit .elfRouteMarker{width:32px;bottom:calc(100% + 4px)}
+#water-trip-cockpit .elfMileage{position:static;order:2;height:auto;justify-content:flex-start;gap:6px;margin:0}
+#water-trip-cockpit .elfMileage strong{font:bold clamp(25px,3cqw,48px)/1 monospace;color:#efdbad;letter-spacing:0}
+#water-trip-cockpit .elfMileage>span{font:bold clamp(12px,1.55cqw,24px)/1 monospace;letter-spacing:0}
+#water-trip-cockpit .elfMileage small{font-size:.65em}
+#water-trip-cockpit .tripRoutePostcard{position:absolute;right:14px;top:14px;bottom:14px;width:94px;height:calc(100% - 28px);object-fit:cover;border:6px solid #d5c599;box-sizing:border-box;outline:1px dashed #65563b;image-rendering:pixelated;transform:rotate(2deg)}
+#water-trip-cockpit .elfDrink{padding:42px 12px 12px;display:flex;gap:8px;background:linear-gradient(#27372b 0 34px,#ddd0aa 34px)}
+#water-trip-cockpit .elfDrinkTitle{position:absolute;inset:8px 10px auto;display:flex;align-items:center;justify-content:space-between;gap:6px;font:11px/1.2 monospace;letter-spacing:.06em;color:#e5cf9b}
+#water-trip-cockpit .elfDrinkTitle>span{font-size:13px;padding:0;background:none;color:#cfb47e}
+#water-trip-cockpit .elfCup{flex:0 0 36%;height:auto;min-height:105px;align-self:stretch;overflow:visible}
+#water-trip-cockpit .elfCup>.elfCupLift{--cup-lift:24px;inset:0;position:absolute;width:100%;height:100%}
+#water-trip-cockpit .elfCupLift>img{width:180%;height:180%;left:-40%;bottom:-43%;object-fit:contain}
+#water-trip-cockpit .elfCupChoices{position:relative;inset:auto;flex:1;width:auto;height:auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:0}
+#water-trip-cockpit .elfCupChoices select{width:100%;min-width:0;min-height:36px;font:13px monospace;color:#3f3524;background:#e8d8af;border:1px solid #a28958;border-radius:5px;padding:6px}
+#water-trip-cockpit .elfCupChoices .tripDrinkNow{flex:none;min-height:42px;height:auto;margin:0;font-size:14px;font-weight:bold;background:linear-gradient(#354b3a,#1b3025);border:2px solid #a7905d;border-radius:4px;color:#ead8b0;outline:none}
+#water-trip-cockpit .elfCupChoices .tripEditCups{flex:none;min-height:24px;height:auto;font-size:10px;background:none;color:#5b4b31;border:0;margin:0;box-shadow:none}
+.tripCockpitNav{display:flex;flex-direction:column;gap:6px}
+#water-trip-cockpit .tripCockpitNav button{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;gap:5px;padding:6px;background:linear-gradient(#eee0bf,#c8ad7d);color:#493a25;border:2px solid #92764f;border-radius:5px;font-size:14px;box-shadow:inset 0 0 0 1px #f8e8c9}
+#water-trip-cockpit .tripCockpitNav span{font-size:11px}
+/* Scenery mode remains a fully usable tracker. */
+#water-trip-cockpit.isCompact .tripWindow{aspect-ratio:2.8}
+#water-trip-cockpit.isCompact .tripDailyNote,#water-trip-cockpit.isCompact .tripDial,#water-trip-cockpit.isCompact .tripGaugeTarget,#water-trip-cockpit.isCompact .tripRoutePostcard,#water-trip-cockpit.isCompact .elfRouteTitle,#water-trip-cockpit.isCompact .elfDrinkTitle,#water-trip-cockpit.isCompact .elfCup{display:none}
+#water-trip-cockpit.isCompact .elfDashboard{grid-template-columns:.8fr 1.5fr 1fr 64px;gap:8px;padding:8px}
+#water-trip-cockpit.isCompact .elfGauge,#water-trip-cockpit.isCompact .elfRoute,#water-trip-cockpit.isCompact .elfDrink{min-height:60px;padding:8px;border-radius:5px}
+#water-trip-cockpit.isCompact .elfGauge{justify-content:center}
+#water-trip-cockpit.isCompact .elfGauge>strong{margin:0;font-size:22px}
+#water-trip-cockpit.isCompact .elfRoute{gap:8px;justify-content:center}
+#water-trip-cockpit.isCompact .elfMileage{order:0}
+#water-trip-cockpit.isCompact .elfMileage strong{font-size:22px}
+#water-trip-cockpit.isCompact .elfMileage>span{font-size:12px}
+#water-trip-cockpit.isCompact .elfRouteMarker{display:none}
+#water-trip-cockpit.isCompact .elfDrink{background:#26382b}
+#water-trip-cockpit.isCompact .elfCupChoices{flex-direction:row;align-items:center}
+#water-trip-cockpit.isCompact .tripEditCups{display:none}
+#water-trip-cockpit.isCompact .tripCockpitNav button:not(:last-child){display:none}
+@container(min-width:768px) and (max-width:1100px){
+ #water-trip-cockpit .elfDashboard{grid-template-columns:.85fr 1.4fr 1fr;gap:8px;padding:9px}
+ #water-trip-cockpit .elfRoute{padding-right:14px}
+ #water-trip-cockpit .tripRoutePostcard{display:none}
+ #water-trip-cockpit .tripCockpitNav{grid-column:1/-1;flex-direction:row}
+ #water-trip-cockpit .tripCockpitNav button{min-height:34px}
+ #water-trip-cockpit .tripDailyNote{display:none}
+ #water-trip-cockpit .elfCompactLicense{width:28%}
+}
+@container(max-width:767px){
+ #water-trip-cockpit .tripWindow,#water-trip-cockpit.isCompact .tripWindow{aspect-ratio:1.75;min-height:190px}
+ #water-trip-cockpit .tripLandscape{background-size:cover}
+ #water-trip-cockpit .elfCar{width:36%;left:32%;bottom:-5cqw}
+ #water-trip-cockpit .retroInfo{left:8px;top:8px;width:46%;padding:7px}
+ #water-trip-cockpit .retroInfoTop{padding:0;margin:0;border:0;gap:4px}
+ #water-trip-cockpit .retroInfoTop b{font-size:10px}
+ #water-trip-cockpit .retroInfoTop span:not(.retroAntlers),#water-trip-cockpit .retroWeather small,#water-trip-cockpit .retroLocation small,#water-trip-cockpit .retroAntlers{display:none}
+ #water-trip-cockpit .retroWeather b{font-size:16px}
+ #water-trip-cockpit .retroLocation{padding-top:5px;margin:0;gap:4px}
+ #water-trip-cockpit .retroLocation b{font-size:10px}
+ #water-trip-cockpit .retroLocation>span{font-size:14px}
+ #water-trip-cockpit .tripDailyNote{display:none}
+ #water-trip-cockpit .elfCompactLicense{width:38%;min-width:0;right:7px;top:8px}
+ #water-trip-cockpit .elfLicenseOpen>b{font-size:10px}
+ #water-trip-cockpit .elfModeSwitch button{font-size:7px}
+ #water-trip-cockpit .tripLayoutToggle{font-size:10px;min-height:30px;right:8px;bottom:8px}
+ #water-trip-cockpit .elfDashboard{grid-template-columns:1fr;gap:10px;padding:10px}
+ #water-trip-cockpit .elfGauge{min-height:128px;justify-content:center;padding:15px 12px 15px 42%;align-items:flex-start}
+ #water-trip-cockpit .tripDial{width:43%;height:100%;inset:0 auto 0 0}
+ #water-trip-cockpit .elfGauge>strong{margin:0;font-size:32px}
+ #water-trip-cockpit .tripGaugeTarget{font-size:12px}
+ #water-trip-cockpit .elfRoute{min-height:128px;padding:12px 14px;gap:18px}
+ #water-trip-cockpit .elfRouteTitle{font-size:10px}
+ #water-trip-cockpit .elfRouteTitle b{font-size:10px}
+ #water-trip-cockpit .tripRoutePostcard{display:none}
+ #water-trip-cockpit .elfMileage strong{font-size:30px}
+ #water-trip-cockpit .elfMileage>span{font-size:15px}
+ #water-trip-cockpit .elfGoalTrack{height:12px;min-height:12px}
+ #water-trip-cockpit .elfDrink{min-height:145px;padding-top:40px}
+ #water-trip-cockpit .elfCup{flex-basis:28%;min-height:90px}
+ #water-trip-cockpit .elfCupLift>img{width:155%;height:165%;left:-27%;bottom:-36%}
+ #water-trip-cockpit .elfCupChoices{height:auto;min-height:0;width:auto;inset:auto;padding:0;gap:7px}
+ #water-trip-cockpit .elfCupChoices select{min-height:38px;font-size:14px}
+ #water-trip-cockpit .elfCupChoices .tripDrinkNow{min-height:48px;font-size:17px}
+ #water-trip-cockpit .elfCupChoices .tripEditCups{min-height:28px;font-size:11px}
+ #water-trip-cockpit .tripCockpitNav{flex-direction:row;gap:8px}
+ #water-trip-cockpit .tripCockpitNav button{min-height:48px;flex-direction:column;font-size:17px;gap:0}
+ #water-trip-cockpit .tripCockpitNav span{font-size:10px}
+ #water-trip-cockpit.isCompact .elfDashboard{grid-template-columns:1fr 1.6fr}
+ #water-trip-cockpit.isCompact .elfDrink{grid-column:1/-1}
+ #water-trip-cockpit.isCompact .tripCockpitNav{grid-column:1/-1}
+ #water-trip-cockpit.isCompact .elfGauge{padding:8px;align-items:center}
+ #water-trip-cockpit.isCompact .elfCupChoices{flex-direction:row}
+ #water-trip-cockpit.isCompact .elfCupChoices select{max-width:48%}
+ #water-trip-cockpit.isCompact .tripDrinkNow{flex:1}
+}
+#water-trip-cockpit .elfDrink .elfCupChoices button.tripDrinkNow{background:linear-gradient(#354b3a,#1b3025);color:#ead8b0;border:2px solid #a7905d}
+#water-trip-cockpit .elfDrink .elfCupChoices button.tripEditCups{background:none;color:#5b4b31}
+/* Restore the supplied brass/wood dial; all readings use SVG coordinates. */
+#water-trip-cockpit .elfGauge{padding:0;min-height:190px;background:#202624;border-color:#756044}
+#water-trip-cockpit .restoredDial{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;image-rendering:pixelated}
+#water-trip-cockpit .tripDialValue{fill:#e8d1a0;font:32px monospace;letter-spacing:2px}
+#water-trip-cockpit .tripDialUnit{fill:#d6c29a;font:15px monospace;letter-spacing:1px}
+#water-trip-cockpit .tripWaterNeedle{transition:transform .65s ease}
+#water-trip-cockpit .elfGauge>strong,#water-trip-cockpit .elfGauge>.tripGaugeTarget{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%)}
+#water-trip-cockpit .elfRouteTitle .tripStampIcon{width:42px;height:34px;padding:0;border:0;background:transparent;flex:none;image-rendering:auto}
+#water-trip-cockpit .elfGoalTrack{height:20px;min-height:20px;padding:4px;box-sizing:border-box;border:3px solid #a28660;border-radius:7px;background:#121a15;box-shadow:inset 0 0 0 1px #070e0b,0 1px 0 #d6c29955;overflow:visible}
+.tripProgressCells{display:flex;gap:5px;width:100%;height:100%}
+.tripProgressCells>span{flex:1;min-width:0;border-radius:2px;background:#293426;box-shadow:inset 1px 1px 0 #46543b,inset -1px -1px 0 #172015}
+.tripProgressCells>span.isFilled{background-color:#94a872;background-image:radial-gradient(ellipse at 30% 20%,#c5cfa533,transparent 70%),repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,#18230c0b 0 1px,transparent 1px 4px);box-shadow:inset 1px 1px 0 #b2bf8d,inset -1px -1px 0 #586b42}
+#water-trip-cockpit.isCompact .elfGauge{min-height:60px;padding:8px}
+#water-trip-cockpit.isCompact .elfGauge>strong{position:static;width:auto;height:auto;clip-path:none;overflow:visible;margin:0}
+@container(max-width:767px){#water-trip-cockpit .elfGauge{min-height:170px}#water-trip-cockpit .restoredDial{width:100%;height:100%}#water-trip-cockpit .elfGoalTrack{height:22px;min-height:22px}.tripProgressCells{gap:4px}#water-trip-cockpit.isCompact .elfGauge{min-height:60px}}
+@media(prefers-reduced-motion:reduce){#water-trip-cockpit .tripWaterNeedle{transition:none}}
+#water-trip-cockpit .tripDialValue{font-size:44px;font-weight:700}
+#water-trip-cockpit .tripDialUnit{font-size:18px}
+#water-trip-cockpit .elfGoalTrack{height:28px;min-height:28px}
+@container(max-width:767px){#water-trip-cockpit .elfGoalTrack{height:28px;min-height:28px}}
