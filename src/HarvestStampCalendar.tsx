@@ -11,7 +11,7 @@ export default function HarvestStampCalendar({points,onDay,mode='water'}:{points
    {Array.from({length:offset},(_,i)=><span className="stampCalendarBlank" key={'blank'+i} aria-hidden="true"/>)}
    {points.map(p=><button key={p.day} className={'stampCalendarDay '+p.kind} onClick={()=>onDay(p.day)} aria-label={p.day+' · '+amount(p)+(p.kind==='rest'?tx(' · 森林休息日',' · Forest rest day'):p.kind==='planned'?tx(' · 尚未出發',' · Journey ahead'):'')}>
     <time dateTime={p.day}>{Number(p.day.slice(-2))}</time>
-    {p.kind!=='planned'?<img className="stampCalendarArtwork" src={'./trip/month-stamps/'+mode+'-'+(p.kind==='rest'?'rest':'recorded')+'.png'} alt="" aria-hidden="true" decoding="async" width="52" height="52"/>:<span className="stampCalendarAhead" aria-hidden="true"/>}
+    {p.kind==='rest'?<span className="stampCalendarArtwork stampCalendarRestInk" aria-hidden="true" style={{maskImage:`url('./trip/month-stamps/${mode}-rest.png')`,WebkitMaskImage:`url('./trip/month-stamps/${mode}-rest.png')`}}/>:p.kind==='recorded'?<img className="stampCalendarArtwork" src={'./trip/month-stamps/'+mode+'-recorded.png'} alt="" aria-hidden="true" decoding="async" width="52" height="52"/>:<span className="stampCalendarAhead" aria-hidden="true"/>}
     <small>{p.kind==='planned'?'—':amount(p)}</small>
    </button>)}
   </div>

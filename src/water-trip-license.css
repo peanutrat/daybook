@@ -79,4 +79,4 @@
  .tripDemo .elfLicenseMountains{left:37%;bottom:0;width:55%;height:32%}
 }
 
-@media(max-width:740px){.tripDemo .elfLicensePhoto .elfAvatar{position:absolute;left:5%;bottom:7%;width:90%;height:88%;align-self:auto}.tripDemo .elfLicensePortraitFrame{z-index:0}}
+@media(max-width:740px){.tripDemo .elfLicensePhoto .elfAvatar{position:absolute;inset:8%;width:84%;height:84%;max-height:none;align-self:auto;transform:none}.tripDemo .elfLicensePortraitFrame{z-index:0}}

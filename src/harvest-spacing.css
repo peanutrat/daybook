@@ -98,3 +98,8 @@
 /* Supplied monthly stamps retain their complete circular artwork. */
 .stampCalendarDay .stampCalendarArtwork{display:block;width:52px;height:52px;max-width:94%;object-fit:contain;flex-shrink:0;mix-blend-mode:multiply}
 @media(max-width:600px){.stampCalendarDay .stampCalendarArtwork{width:39px;height:39px}}
+/* Every stamp uses the available cell width for both dimensions. */
+.stampCalendarDay .stampCalendarArtwork,.stampCalendarDay .stampCalendarAhead{box-sizing:border-box;width:min(52px,94%);height:auto;aspect-ratio:1;flex:none;object-fit:contain}
+.stampCalendarDay .stampCalendarAhead{border-radius:50%}
+.stampCalendarDay .stampCalendarRestInk{background-color:#b39e74;mask-size:contain;mask-position:center;mask-repeat:no-repeat;-webkit-mask-size:contain;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;mix-blend-mode:normal}
+@media(max-width:600px){.stampCalendarDay .stampCalendarArtwork,.stampCalendarDay .stampCalendarAhead{width:min(39px,94%)}}

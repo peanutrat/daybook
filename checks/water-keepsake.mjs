@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {waterKeepsakeModel,waterKeepsakeSvg} from '../src/water-keepsake.ts';
+const trip={version:1,drinks:[],settledDays:[]};
+const empty=waterKeepsakeModel(trip,'2026-02-14','month','2026-02-14');assert.equal(empty.average,0);assert.equal(empty.recordedDays,0);assert.equal(empty.rows,5);
+const six=waterKeepsakeModel(trip,'2026-03-10','month','2026-03-10');assert.equal(six.daily.length,31);assert.equal(six.rows,6);assert.equal(six.offset,6);
+assert.equal(waterKeepsakeModel(trip,'2024-02-14','month').daily.length,29);
+assert.equal(waterKeepsakeModel(trip,'2026-01-01','week').start,'2025-12-29');
+const dense={...trip,drinks:Array.from({length:10000},(_,i)=>({id:String(i),day:i%2?'2026-03-01':'2026-03-02',at:i%2?'2026-03-01T12:00:00Z':'2026-03-02T12:00:00Z',ml:10}))};
+const m=waterKeepsakeModel(dense,'2026-03-03','month','2026-03-03');assert.equal(m.ml,100000);assert.equal(m.times,10000);assert.equal(m.recordedDays,2);assert.equal(m.average,50000);assert.equal(m.max,50000);
+const a={banner:'scene.webp',place:'<test & "place">'};
+const svg=waterKeepsakeSvg(m,a,'zh-Hant',true);assert(svg.includes('viewBox="0 0 1000 1460"'));assert.equal((svg.match(/data-keepsake-day=/g)||[]).length,31);assert(!svg.includes('<test'));assert(svg.includes('&lt;test &amp; &quot;place&quot;&gt;'));assert(!/NaN|Infinity/.test(svg));
+const week=waterKeepsakeSvg(waterKeepsakeModel(dense,'2026-03-03','week','2026-03-03'),a,'en',true);assert.equal((week.match(/data-keepsake-day=/g)||[]).length,7);assert(week.includes('1000 1460'));assert(!/\p{Script=Han}/u.test(week));
+const exportSvg=waterKeepsakeSvg(m,a,'zh-Hant',false);assert(!exportSvg.includes('tabindex'));assert(!exportSvg.includes('data-keepsake-day'));
+console.log('PASS: 10,000 drink entries stay in fixed-size weekly/monthly summaries; exact totals, recorded-day means, Monday offsets, six-row and leap months, empty/future days, escaped text and keyboard date targets.');
+
+const barsModel=waterKeepsakeModel({...trip,drinks:[{id:'a',day:'2026-10-19',at:'2026-10-19T12:00:00Z',ml:1000},{id:'b',day:'2026-10-20',at:'2026-10-20T12:00:00Z',ml:2000}]},'2026-10-20','week');
+const barsSvg=waterKeepsakeSvg(barsModel,a);
+assert.equal((barsSvg.match(/class="keepsakeWaterRoute"/g)||[]).length,7);
+assert(barsSvg.includes('h120"'));assert(barsSvg.includes('h240"'));assert(barsSvg.includes('stroke-dasharray="4 7"'));assert(barsSvg.includes('cx="650"'));assert(barsSvg.includes('cx="770"'));assert(!barsSvg.includes('keepsakeWaterBar'));assert(!/NaN|Infinity/.test(waterKeepsakeSvg(waterKeepsakeModel(trip,'2026-10-20','week'),a)));
+console.log('PASS: weekly dotted routes scale to daily totals, have destination markers, and handle empty weeks.');

@@ -12,10 +12,10 @@ URL.createObjectURL=blob=>{const key='blob:'+blobs.size;blobs.set(key,blob);retu
 globalThis.document={createElement(tag){if(tag==='a')return{click(){downloads.push({blob:blobs.get(this.href),name:this.download});}};if(tag==='canvas')return{width:0,height:0,getContext(){return{fillRect(){},strokeRect(){},fillText(text){texts.push(text);}};},toBlob(callback){sizes.push([this.width,this.height]);callback(new Blob(['test PNG payload']));}};throw Error(tag);}};
 const day='2026-10-22';
 const trip=normalizeTrip({version:1,settledDays:[],drinks:Array.from({length:251},(_,i)=>({id:'d'+i,day,at:day+'T12:00:00Z',ml:101+i}))});
-const saved=JSON.stringify(trip),result=await exportWaterPeriod(trip,day,'month');
-assert.equal(result.entries,251);assert.equal(result.files,2);assert.equal(downloads.length,1);assert(downloads[0].name.endsWith('.zip'));
+const saved=JSON.stringify(trip),result=await exportWaterPeriod(trip,day,'day');
+assert.equal(result.entries,251);assert.equal(result.files,11);assert.equal(downloads.length,1);assert(downloads[0].name.endsWith('.zip'));
 assert.equal(texts.filter(t=>/^\d{2}:\d{2}\s/.test(t)).length,251,'all entries must be drawn, including later reading pages');
-assert.equal(JSON.stringify(trip),saved);assert(sizes.every(([w,h])=>w===1200&&h<=7620));
+assert.equal(JSON.stringify(trip),saved);assert(sizes.every(([w,h])=>w===1200&&h<=1380));
 const dir=await mkdtemp(join(tmpdir(),'harvest-export-'));
 try{const zip=join(dir,'export.zip');await writeFile(zip,new Uint8Array(await downloads[0].blob.arrayBuffer()));const listing=execFileSync('unzip',['-t',zip],{encoding:'utf8'});assert(listing.includes('No errors detected'));}finally{await rm(dir,{recursive:true,force:true});}
 texts.length=0;downloads.length=0;
