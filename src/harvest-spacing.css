@@ -95,3 +95,6 @@
   letter-spacing:1px;
  }
 }
+/* Supplied monthly stamps retain their complete circular artwork. */
+.stampCalendarDay .stampCalendarArtwork{display:block;width:52px;height:52px;max-width:94%;object-fit:contain;flex-shrink:0;mix-blend-mode:multiply}
+@media(max-width:600px){.stampCalendarDay .stampCalendarArtwork{width:39px;height:39px}}
