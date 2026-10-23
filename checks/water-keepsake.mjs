@@ -11,6 +11,8 @@ const a={banner:'scene.webp',place:'<test & "place">'};
 const svg=waterKeepsakeSvg(m,a,'zh-Hant',true);assert(svg.includes('viewBox="0 0 1000 1460"'));assert.equal((svg.match(/data-keepsake-day=/g)||[]).length,31);assert(!svg.includes('<test'));assert(svg.includes('&lt;test &amp; &quot;place&quot;&gt;'));assert(!/NaN|Infinity/.test(svg));
 const week=waterKeepsakeSvg(waterKeepsakeModel(dense,'2026-03-03','week','2026-03-03'),a,'en',true);assert.equal((week.match(/data-keepsake-day=/g)||[]).length,7);assert(week.includes('1000 1460'));assert(!/\p{Script=Han}/u.test(week));
 const exportSvg=waterKeepsakeSvg(m,a,'zh-Hant',false);assert(!exportSvg.includes('tabindex'));assert(!exportSvg.includes('data-keepsake-day'));
+const dailyLabels=[...exportSvg.matchAll(/class="monthlyDailyAmount" data-day="([^"]+)"[^>]*>([^<]+)<\/text>/g)];
+assert.equal(dailyLabels.length,31);assert.equal(dailyLabels.find(r=>r[1]==='2026-03-01')[2],'50,000 mL');assert.equal(dailyLabels.find(r=>r[1]==='2026-03-03')[2],'0 mL');assert.equal(dailyLabels.find(r=>r[1]==='2026-03-04')[2],'—');
 console.log('PASS: 10,000 drink entries stay in fixed-size weekly/monthly summaries; exact totals, recorded-day means, Monday offsets, six-row and leap months, empty/future days, escaped text and keyboard date targets.');
 
 const barsModel=waterKeepsakeModel({...trip,drinks:[{id:'a',day:'2026-10-19',at:'2026-10-19T12:00:00Z',ml:1000},{id:'b',day:'2026-10-20',at:'2026-10-20T12:00:00Z',ml:2000}]},'2026-10-20','week');
