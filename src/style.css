@@ -393,3 +393,19 @@
 .headerActions{display:flex;align-items:center;justify-content:flex-end;gap:18px;min-width:0}.languageSwitch{display:flex;align-items:center;gap:6px;white-space:nowrap;color:var(--ink);font-size:13px}.languageSwitch select{max-width:165px;padding:7px 22px 7px 5px;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;min-height:36px}.languageSwitch:focus-within{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
 html[lang=en] .bookApp nav>button{white-space:normal}html[lang=en] .settingsMenu{width:min(340px,calc(100vw - 32px))}html[lang=en] .studioPanel label,html[lang=en] .canvasSettings label{overflow-wrap:anywhere}
 @media(max-width:740px){.headerActions{gap:6px}.headerActions .account{display:none}.languageSwitch{font-size:12px}.languageSwitch select{max-width:160px;min-height:40px}}
+
+/* Mobile utility positions follow the compact two-row header. */
+.mobileLayout header{gap:8px;height:52px;padding:0 10px}
+.mobileLayout .brand{font-size:17px;letter-spacing:0;white-space:nowrap;flex:none}
+.mobileLayout .headerActions{flex:1;justify-content:space-between;gap:5px}
+.mobileLayout .headerActions .languageSwitch{gap:3px;font-size:10px;min-width:0}
+.mobileLayout .headerActions .languageSwitch svg{width:14px;height:14px;flex:none}
+.mobileLayout .headerActions .languageSwitch select{font-size:10px;width:83px;padding:4px 0;min-height:40px}
+.mobileLayout .headerActions .layoutSwitch{margin:0 0 0 auto;flex:none;padding:2px;border-radius:6px}
+.mobileLayout .headerActions .layoutSwitch button{min-height:32px;padding:3px 5px;font-size:10px}
+.mobileLayout .navTools{margin-left:auto;gap:1px}
+.mobileLayout nav{gap:0;flex-wrap:nowrap}
+.mobileLayout nav>button{padding:8px 5px;font-size:11px;white-space:nowrap}
+.mobileLayout .navTools>button,.mobileLayout .settingsWrap>button{padding:7px 5px;min-width:28px;min-height:36px}
+.mobileLayout .settingsMenu{max-height:75dvh;overflow:auto}
+@media(max-width:350px){.mobileLayout .brand{font-size:15px}.mobileLayout header{gap:5px;padding:0 8px}.mobileLayout .headerActions .languageSwitch select{width:73px}.mobileLayout .headerActions .layoutSwitch button{padding:3px 4px}.mobileLayout nav>button{font-size:10px;padding:8px 4px}}

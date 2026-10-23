@@ -1,0 +1,35 @@
+/* Compact brass-and-charcoal license with one fixed coordinate space. */
+#water-trip-cockpit .tripLicenseSidebar{position:absolute;left:0;right:auto;top:0;width:clamp(145px,21%,230px);min-width:0;aspect-ratio:2.15;container-type:inline-size;background:linear-gradient(105deg,#2c2b26,#181d1b);color:#ddbd82;border:3px double #a68a59;border-radius:3px 3px 9px 3px;box-shadow:2px 3px 5px #10191377;overflow:visible;filter:none;z-index:7;isolation:isolate;transition:none}
+#water-trip-cockpit .tripLicenseSidebar[data-side=right]{left:auto;right:0;border-radius:3px 3px 3px 9px}
+#water-trip-cockpit .tripLicenseSidebarBody{position:absolute;inset:0 17px 0 0;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);align-items:stretch;padding:5px;gap:4px}
+#water-trip-cockpit .tripLicenseSidebarBody[hidden]{display:none}
+#water-trip-cockpit .tripLicenseSidebar .elfLicenseOpen{position:relative;inset:auto;width:100%;height:100%;min-height:0;border:3px double #a68a59;border-radius:3px;background:radial-gradient(ellipse at top,#454438,#252c25);padding:0;box-shadow:inset 0 0 0 1px #1a1d17;overflow:hidden}
+#water-trip-cockpit .tripLicenseSidebar .elfLicenseFace{position:absolute;inset:3%;width:94%;height:94%;overflow:hidden;background:none}
+#water-trip-cockpit .tripLicenseSidebar .elfLicenseFace .elfAvatar{display:block;width:100%;height:100%;object-fit:contain;transform:none}
+#water-trip-cockpit .tripLicenseSidebar .elfModeSwitch{position:relative;inset:auto;width:100%;height:100%;display:grid;grid-template-rows:1fr 1fr;gap:3px;padding:0;border:0;border-radius:0;background:none}
+#water-trip-cockpit .tripLicenseSidebar .elfModeSwitch button{padding:0 2px;border:1px solid #8e764d;border-radius:1px;background:#20241f;color:#d4b57f;font:clamp(10px,7.7cqw,15px)/1.1 Georgia,'Microsoft JhengHei',serif;letter-spacing:.04em;min-height:0;min-width:0;box-shadow:inset 0 0 0 1px #c7a56a10;white-space:nowrap}
+#water-trip-cockpit .tripLicenseSidebar .elfModeSwitch button[aria-pressed=true]{background:#665336;color:#f4dcab;border-color:#d1af72;text-shadow:0 1px #382c1d}
+#water-trip-cockpit .tripSidebarToggle{position:absolute;right:-1px;top:-1px;width:18px;height:calc(100% + 2px);min-height:32px;border:0;border-left:1px solid #8e764d;border-radius:0 2px 7px 0;padding:0;background:#242922;color:#dfbf83;font:21px/1 Georgia;box-shadow:none}
+#water-trip-cockpit .tripSidebarSettings{position:absolute;right:20px;bottom:-20px;width:27px;height:21px;min-height:0;border:1px solid #8e764d;border-top:0;border-radius:0 0 4px 4px;padding:0;background:#252a23;color:#dfbf83;font:17px/1 Georgia;box-shadow:1px 2px 3px #1115}
+#water-trip-cockpit .tripLicenseSidebar[data-side=right] .tripLicenseSidebarBody{inset:0 0 0 17px}
+#water-trip-cockpit .tripLicenseSidebar[data-side=right] .tripSidebarToggle{left:-1px;right:auto;border-left:0;border-right:1px solid #8e764d;border-radius:2px 0 0 7px}
+#water-trip-cockpit .tripLicenseSidebar[data-collapsed=true]{width:21px;height:48px;aspect-ratio:auto;border-radius:0 5px 5px 0;background:#242922}
+#water-trip-cockpit .tripLicenseSidebar[data-collapsed=true] .tripSidebarToggle{width:100%;border:0;inset:0;height:100%}
+#water-trip-cockpit .tripLicenseSidebar[data-side=right][data-collapsed=true]{border-radius:5px 0 0 5px}
+#water-trip-cockpit .tripSidebarOptions{position:absolute;left:0;top:calc(100% + 23px);display:flex;align-items:center;gap:6px;width:max-content;padding:8px;background:#202620;color:#dfbf83;border:1px solid #a68a59;border-radius:3px;box-shadow:0 3px 10px #1116;font-size:11px;z-index:8}
+#water-trip-cockpit .tripLicenseSidebar[data-side=right] .tripSidebarOptions{left:auto;right:0}
+#water-trip-cockpit .tripSidebarOptions button{padding:7px 10px;min-height:32px;border:1px solid #8e764d;background:#30382d;color:#e6cc99;border-radius:2px;font-size:12px}
+#water-trip-cockpit .tripSidebarOptions button[aria-pressed=true]{background:#69563a;border-color:#d1af72}
+@container(max-width:767px){#water-trip-cockpit .tripLicenseSidebar{width:44%;max-width:185px;min-width:0;top:0}#water-trip-cockpit .tripLicenseSidebar[data-collapsed=true]{width:21px}}
+
+#water-trip-cockpit .tripLicenseSidebar .elfLicenseFace .elfAvatar{position:absolute;width:145%;height:145%;max-width:none;max-height:none;left:-22.5%;top:-22.5%}
+#water-trip-cockpit .tripWindow{width:100%;min-width:0}
+
+/* Engraved lettering and stepped brass corners retain the charcoal base. */
+#water-trip-cockpit .tripLicenseSidebar{border:4px double #af925e;border-radius:2px 2px 10px 2px;box-shadow:inset 0 0 0 2px #171b17,inset 0 0 0 3px #9c80542b,2px 3px 5px #10191377}
+#water-trip-cockpit .tripLicenseSidebarBody{padding:6px;gap:5px}
+#water-trip-cockpit .tripLicenseSidebar:not([data-collapsed=true]):before,#water-trip-cockpit .tripLicenseSidebar:not([data-collapsed=true]):after{content:"◆";position:absolute;font-size:7px;line-height:1;color:#c5a56b;pointer-events:none;z-index:3}
+#water-trip-cockpit .tripLicenseSidebar:before{left:1px;top:1px}#water-trip-cockpit .tripLicenseSidebar:after{left:1px;bottom:1px}
+#water-trip-cockpit .tripLicenseSidebar .elfLicenseOpen{border:3px double #b79a65;clip-path:polygon(7px 0,calc(100% - 7px) 0,100% 7px,100% calc(100% - 7px),calc(100% - 7px) 100%,7px 100%,0 calc(100% - 7px),0 7px);box-shadow:inset 0 0 0 1px #191d17,inset 0 0 0 3px #bba16b27}
+#water-trip-cockpit .tripLicenseSidebar .elfModeSwitch button{font-family:'Noto Serif TC','Songti TC','PMingLiU',Georgia,serif;font-weight:600;letter-spacing:.08em;border:3px double #8e764d;text-shadow:0 1px #080b08;box-shadow:inset 0 1px #d7b47116,inset 0 -1px #05080566;clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 3px,100% calc(100% - 3px),calc(100% - 3px) 100%,3px 100%,0 calc(100% - 3px),0 3px)}
+#water-trip-cockpit .tripLicenseSidebar .elfModeSwitch button[aria-pressed=true]{border-color:#d1af72;box-shadow:inset 0 0 0 1px #1c211999,inset 0 1px #edce8c55;text-shadow:0 1px #332816}
