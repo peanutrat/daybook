@@ -409,3 +409,5 @@ html[lang=en] .bookApp nav>button{white-space:normal}html[lang=en] .settingsMenu
 .mobileLayout .navTools>button,.mobileLayout .settingsWrap>button{padding:7px 5px;min-width:28px;min-height:36px}
 .mobileLayout .settingsMenu{max-height:75dvh;overflow:auto}
 @media(max-width:350px){.mobileLayout .brand{font-size:15px}.mobileLayout header{gap:5px;padding:0 8px}.mobileLayout .headerActions .languageSwitch select{width:73px}.mobileLayout .headerActions .layoutSwitch button{padding:3px 4px}.mobileLayout nav>button{font-size:10px;padding:8px 4px}}
+
+.bookSettingsIcon{display:block;flex:none;width:18px;height:18px}.settingsWrap>button:has(.bookSettingsIcon){display:grid;place-items:center}

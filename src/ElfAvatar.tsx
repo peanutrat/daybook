@@ -8,7 +8,7 @@ function recolor(color:string,base:string,target:string){
 }
 
 export const avatarLayerOrder=['backHair','body','head','ears','blush','eyes','mouth','frontHair','sideHair','decoration','clothes','shirt','hands','headwear'] as const;
-export function ElfAvatar({avatar,portrait=false,carPose=false}:{avatar?:Appearance;portrait?:boolean;carPose?:boolean}){
+export function ElfAvatar({avatar,portrait=false,carPose=false,centered=false}:{avatar?:Appearance;portrait?:boolean;carPose?:boolean;centered?:boolean}){
  const a=normalizeAvatar(avatar);
  const find=(key:string,id:string)=>partsFor(key).find(p=>p.id===id);
  const part=(key:typeof avatarLayerOrder[number])=>key==='shirt'?(['clothes-2','clothes-3'].includes(a.clothes)?find('clothes','clothes-4'):undefined):key==='body'?partsFor('body')[0]:key==='head'?partsFor('body')[1]:key==='decoration'?(a.decorativeHair?partsFor('decoration')[0]:undefined):key==='hands'||key==='blush'?partsFor(key)[0]:find(key,a[key]);
@@ -21,5 +21,9 @@ export function ElfAvatar({avatar,portrait=false,carPose=false}:{avatar?:Appeara
   const color=['frontHair','backHair','sideHair','decoration'].includes(key)?a.hairColor:key==='clothes'?a.clothesColor:key==='headwear'?a.accessoryColor:a.mouthColor;
   return p?.base&&color&&p.tints.includes(c)?recolor(c,p.base,color):c;
  }
- return <svg className="elfAvatar" viewBox="0 0 32 32" aria-hidden="true" shapeRendering="crispEdges" data-avatar-art="parts32" data-avatar-portrait={portrait?'true':'false'}>{avatarLayerOrder.map(key=>{const p=part(key),selected=key==='headwear'?partsFor('headwear').filter(p=>(a.headwears??(a.headwear==='none'?[]:[a.headwear])).includes(p.id)):p?[p]:[];return <g key={key} data-avatar-layer={key} data-part={p?.id}>{selected.flatMap(p=>p!.pixels.filter(pixel=>!carPose||!['body','backHair','clothes','shirt'].includes(key)||Number(pixel[1])<26).map(([x,y,c,alpha])=><rect key={p!.id+':'+x+':'+y} x={x} y={y} width="1" height="1" fill={paint(key,String(c),p,Number(x),Number(y))} opacity={alpha===255?undefined:Number(alpha)/255}/>))}</g>})}</svg>;
+ const visibleParts=avatarLayerOrder.flatMap(key=>key==='headwear'?partsFor('headwear').filter(p=>(a.headwears??(a.headwear==='none'?[]:[a.headwear])).includes(p.id)):(part(key)?[part(key)!]:[]));
+ const points=centered?visibleParts.flatMap(p=>p.pixels.filter(pixel=>Number(pixel[3])>0)):[];
+ let camera='0 0 32 32';
+ if(points.length){const xs=points.map(p=>Number(p[0])),ys=points.map(p=>Number(p[1])),left=Math.min(...xs),right=Math.max(...xs)+1,top=Math.min(...ys),bottom=Math.max(...ys)+1,size=Math.max(right-left,bottom-top)+4;camera=[(left+right-size)/2,(top+bottom-size)/2,size,size].join(' ');}
+ return <svg className="elfAvatar" viewBox={camera} aria-hidden="true" shapeRendering="crispEdges" data-avatar-art="parts32" data-avatar-portrait={portrait?'true':'false'}>{avatarLayerOrder.map(key=>{const p=part(key),selected=key==='headwear'?partsFor('headwear').filter(p=>(a.headwears??(a.headwear==='none'?[]:[a.headwear])).includes(p.id)):p?[p]:[];return <g key={key} data-avatar-layer={key} data-part={p?.id}>{selected.flatMap(p=>p!.pixels.filter(pixel=>!carPose||!['body','backHair','clothes','shirt'].includes(key)||Number(pixel[1])<26).map(([x,y,c,alpha])=><rect key={p!.id+':'+x+':'+y} x={x} y={y} width="1" height="1" fill={paint(key,String(c),p,Number(x),Number(y))} opacity={alpha===255?undefined:Number(alpha)/255}/>))}</g>})}</svg>;
 }

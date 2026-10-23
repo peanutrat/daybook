@@ -68,7 +68,7 @@ export default function WaterTripDemo({value,onChange}:{value?:WaterTrip;onChang
 
     <aside className="elfCompactLicense tripLicenseSidebar" data-side={trip.licenseSide??'left'} data-collapsed={!!trip.licenseCollapsed} aria-label={sidebarText('旅行小側邊欄','Travel sidebar')}>
      <div className="tripLicenseSidebarBody" hidden={!!trip.licenseCollapsed}>
-      <button type="button" className="elfLicenseOpen" onClick={editDriver} aria-label={uiText('編輯旅行駕照')} title={sidebarText('點頭貼開啟詳細調整','Open detailed settings')}><span className="elfLicenseFace"><ElfAvatar avatar={avatar} portrait/></span></button>
+      <button type="button" className="elfLicenseOpen" onClick={editDriver} aria-label={uiText('編輯旅行駕照')} title={sidebarText('點頭貼開啟詳細調整','Open detailed settings')}><span className="elfLicenseFace"><ElfAvatar avatar={avatar} portrait centered/></span></button>
       <div className="elfModeSwitch" aria-label={uiText('紀錄模式')}>{(['free','goal'] as const).map(mode=><button type="button" key={mode} aria-pressed={(hasGoal?'goal':'free')===mode} onClick={()=>mode==='goal'&&!trip.hydration?editDriver():onChange({...trip,mode})}>{mode==='free'?uiText('自由紀錄'):uiText('目標紀錄')}</button>)}</div>
 
      </div>
